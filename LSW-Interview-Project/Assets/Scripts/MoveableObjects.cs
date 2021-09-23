@@ -29,7 +29,21 @@ public class MoveableObjects : MonoBehaviour
     [Tooltip("Referenced RigidBody")]
     [SerializeField]
     protected Rigidbody2D rigidBody;
+    // Get the start scale to reference when changing direction
+    protected Vector3 startScale;
 
+    [Space(5)]
+    [Header("Animation Configuration")]
+    [Tooltip("Referenced Animator")]
+    [SerializeField]
+    protected Animator animator;
+
+    private void Start()
+    {
+        startScale = transform.localScale;
+    }
+
+    #region Movement
     /// <summary>
     /// Used for execute the moviment to the desired direction
     /// </summary>
@@ -68,4 +82,43 @@ public class MoveableObjects : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
+    #region Animation
+    protected void HandleAnimation(Vector2 direction)
+    {
+        switch (lastMovementDirection)
+        {
+            case Direction.up:
+                transform.localScale = startScale;
+                animator.SetFloat("InputX", 0);
+                animator.SetFloat("Inputy", 1);
+                break;
+            case Direction.down:
+                transform.localScale = startScale;
+                animator.SetFloat("InputX", 0);
+                animator.SetFloat("Inputy", -1);
+                break;
+            case Direction.left:
+                Vector3 newScale = startScale;
+                newScale.x *= -1;
+                transform.localScale = newScale;
+                animator.SetFloat("InputX", -1);
+                animator.SetFloat("Inputy", 0);
+                break;
+            case Direction.right:
+                transform.localScale = startScale;
+                animator.SetFloat("InputX", 1);
+                animator.SetFloat("Inputy", 0);
+                break;
+        }
+        animator.SetFloat("Speed", direction.sqrMagnitude * speed * Time.deltaTime);
+    }
+
+    protected void SetAnimatorParameters(Vector2 direction)
+    {
+
+    }
+    #endregion
 }

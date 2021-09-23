@@ -6,7 +6,9 @@ public class PlayerBehaviour : MoveableObjects
 {
     void Update()
     {
-        Move(GetInputAxis());
+        Vector2 inputDirection = GetInputAxis();
+        Move(inputDirection);
+        HandleAnimation(inputDirection);
     }
 
     /// <summary>
