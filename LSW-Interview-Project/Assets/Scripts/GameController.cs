@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        // Locks at 60 fps, to avoid bugs with different performances, i used only for this project beside mobile ones
+        Application.targetFrameRate = 60;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
