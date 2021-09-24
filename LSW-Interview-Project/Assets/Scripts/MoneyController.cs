@@ -12,6 +12,22 @@ public class MoneyController : MonoBehaviour
     [Tooltip("Money UI text reference")]
     [SerializeField]
     private TextMeshProUGUI moneyText;
+    [Tooltip("Money Add effect UI text reference")]
+    [SerializeField]
+    private TextMeshProUGUI moneyAddText;
+    [Tooltip("Text color when money add is positive")]
+    [SerializeField]
+    private Color moneyAddTextColorPositive;
+    [Tooltip("Text color when money add is negative")]
+    [SerializeField]
+    private Color moneyAddTextColorNegative;
+    // Reference to inicial position
+    Vector2 moneyAddTextStartPosition;
+
+    private void Start()
+    {
+        moneyAddTextStartPosition = moneyAddText.transform.position;
+    }
 
     /// <summary>
     /// Change the money amount and start the courotine to animate the transiction
@@ -19,6 +35,7 @@ public class MoneyController : MonoBehaviour
     /// <param name="value">The value of the change</param>
     public void AddMoney(int value)
     {
+        StartCoroutine(ShowAddMoneyTextEffect(value));
         StartCoroutine(SetMoneyTo(moneyAcount + value));
     }
 
@@ -48,6 +65,7 @@ public class MoneyController : MonoBehaviour
         }
         SetMoneyText(moneyAcount);
     }
+
     /// <summary>
     /// Change the current UI money text
     /// </summary>
@@ -55,5 +73,28 @@ public class MoneyController : MonoBehaviour
     private void SetMoneyText(int moneyValue)
     {
         moneyText.text = $"${moneyValue}";
+    }
+
+    /// <summary>
+    /// Show money add effect
+    /// </summary>
+    /// <param name="moneyValue">The value to show in money text</param>
+    private IEnumerator ShowAddMoneyTextEffect(int moneyValue)
+    {
+        moneyAddText.transform.position = moneyAddTextStartPosition;
+        string signText = moneyValue > 0 ? "+" : "-";
+        moneyAddText.text = $"{signText} ${moneyValue}";
+        moneyAddText.color = moneyValue > 0 ? moneyAddTextColorPositive : moneyAddTextColorNegative;
+
+        while (moneyAddText.color.a > 0.01)
+        {
+            moneyAddText.transform.position += Vector3.up * 50 * Time.fixedDeltaTime;
+            Color newColor = moneyAddText.color;
+            newColor.a = Mathf.Lerp(moneyAddText.color.a, 0, .1f);
+            moneyAddText.color = newColor;
+            yield return null;
+        }
+        moneyAddText.color = new Color(0, 0, 0, 0);
+
     }
 }
