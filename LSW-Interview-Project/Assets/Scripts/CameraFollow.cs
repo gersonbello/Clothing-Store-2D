@@ -27,7 +27,7 @@ public class CameraFollow : MonoBehaviour
     private Vector2 minCameraPosition;
 
 
-    private void Awake()
+    private void Start()
     {
         Vector3 newPos = target.position;
         newPos.z = transform.position.z;
