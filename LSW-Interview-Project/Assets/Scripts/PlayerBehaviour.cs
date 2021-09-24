@@ -27,4 +27,17 @@ public class PlayerBehaviour : MoveableObjects
         inputAxis.y = Input.GetAxisRaw("Vertical");
         return inputAxis;
     }
+
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+    }
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("Money Bag"))
+        {
+            FindObjectOfType<MoneyController>().AddMoney(50);
+            Destroy(coll.gameObject);
+        }
+    }
 }
