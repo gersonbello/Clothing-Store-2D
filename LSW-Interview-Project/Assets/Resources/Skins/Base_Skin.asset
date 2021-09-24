@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb60073a6b8e6c4fa64b0f47c7ea732, type: 3}
+  m_Name: Base_Skin
+  m_EditorClassIdentifier: 
+  hatUp: {fileID: -544369415913772380, guid: 47ef6f32545735340a899277098337db, type: 3}
+  hatDown: {fileID: 7509895763639388875, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
+  hatRight: {fileID: 8759167600828225232, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  hatLeft: {fileID: 8759167600828225232, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  headUp: {fileID: 5020757429722616596, guid: 47ef6f32545735340a899277098337db, type: 3}
+  headDown: {fileID: 3422550722109570269, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
+  headRight: {fileID: 4011754869034626722, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  headLeft: {fileID: 4011754869034626722, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  bodyUp: {fileID: -2946612315032841918, guid: 47ef6f32545735340a899277098337db, type: 3}
+  bodyDown: {fileID: 2329964412540424940, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
+  bodyRight: {fileID: 2338711009602175021, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  bodyLeft: {fileID: 2338711009602175021, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  handsUp: {fileID: -1827551231832828756, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  handsDown: {fileID: -1827551231832828756, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  handsRight: {fileID: -1827551231832828756, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  handsLeft: {fileID: -1827551231832828756, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  feetUp: {fileID: 8860938215478395062, guid: 47ef6f32545735340a899277098337db, type: 3}
+  feetDown: {fileID: 8592820463791942687, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
+  feetRight: {fileID: -2712956550255106412, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  feetLeft: {fileID: -2712956550255106412, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}

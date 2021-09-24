@@ -1,25 +1,22 @@
 fileFormatVersion: 2
-guid: e229f2297ffa0834fbaf158d3698e815
+guid: 66fa1870cfa5e6b4ead81705dd3704ee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1001319446498919386
-    second: Char_Base_Side_0
+      213: 8759167600828225232
+    second: Char_Base_Side_New_0
   - first:
-      213: -5667618076964737637
-    second: Char_Base_Side_1
+      213: 4011754869034626722
+    second: Char_Base_Side_New_1
   - first:
-      213: -6876899385654808497
-    second: Char_Base_Side_2
+      213: 2338711009602175021
+    second: Char_Base_Side_New_2
   - first:
-      213: -5522840737561877108
-    second: Char_Base_Side_3
+      213: -1827551231832828756
+    second: Char_Base_Side_New_3
   - first:
-      213: -4259791518458919183
-    second: Char_Base_Side_4
-  - first:
-      213: 8255719393051044874
-    second: Char_Base_Side_5
+      213: -2712956550255106412
+    second: Char_Base_Side_New_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -50,7 +47,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -83,7 +80,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -95,7 +92,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -107,7 +104,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -119,7 +116,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -133,13 +130,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Char_Base_Side_0
+      name: Char_Base_Side_New_0
       rect:
         serializedVersion: 2
-        x: 443
-        y: 120
-        width: 716
-        height: 372
+        x: 219
+        y: 535
+        width: 718
+        height: 374
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +144,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62cbdb4c4499a12f0800000000000000
-      internalID: -1001319446498919386
+      spriteID: 0d61a7f5680de8970800000000000000
+      internalID: 8759167600828225232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char_Base_Side_1
+      name: Char_Base_Side_New_1
       rect:
         serializedVersion: 2
-        x: 1052
-        y: 398
-        width: 703
-        height: 582
+        x: 1051
+        y: 396
+        width: 705
+        height: 586
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +165,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9d2fe723639851b0800000000000000
-      internalID: -5667618076964737637
+      spriteID: 2aea0c65ccd9ca730800000000000000
+      internalID: 4011754869034626722
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char_Base_Side_3
+      name: Char_Base_Side_New_2
       rect:
         serializedVersion: 2
-        x: 1650
+        x: 1287
+        y: 15
+        width: 267
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2002afa545c47020800000000000000
+      internalID: 2338711009602175021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Char_Base_Side_New_3
+      rect:
+        serializedVersion: 2
+        x: 1649
         y: 242
-        width: 127
-        height: 136
+        width: 130
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,20 +207,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8561964c9dea53b0800000000000000
-      internalID: -5522840737561877108
+      spriteID: ca4d6c166db33a6e0800000000000000
+      internalID: -1827551231832828756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Char_Base_Side_4
+      name: Char_Base_Side_New_4
       rect:
         serializedVersion: 2
-        x: 1604
-        y: 130
-        width: 173
-        height: 111
+        x: 1603
+        y: 128
+        width: 176
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,29 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f6c80dee2e22e4c0800000000000000
-      internalID: -4259791518458919183
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Char_Base_Side_2
-      rect:
-        serializedVersion: 2
-        x: 1288
-        y: 17
-        width: 264
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4071f1b1785090a0800000000000000
-      internalID: -6876899385654808497
+      spriteID: 496a9f23464a95ad0800000000000000
+      internalID: -2712956550255106412
       vertices: []
       indices: 
       edges: []

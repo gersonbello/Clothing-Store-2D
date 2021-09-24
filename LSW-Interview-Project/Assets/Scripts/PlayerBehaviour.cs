@@ -11,6 +11,11 @@ public class PlayerBehaviour : MoveableObjects
         HandleAnimation(inputDirection);
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     /// <summary>
     /// Return the input values based on axis
     /// </summary>

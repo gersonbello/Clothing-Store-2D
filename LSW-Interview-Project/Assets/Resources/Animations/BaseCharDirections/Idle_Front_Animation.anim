@@ -205,42 +205,7 @@ AnimationClip:
       m_RotationOrder: 4
     path: Character Body
   m_FloatCurves: []
-  m_PPtrCurves:
-  - curve:
-    - time: 0
-      value: {fileID: 3422550722109570269, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    attribute: m_Sprite
-    path: Character Head
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 7509895763639388875, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    attribute: m_Sprite
-    path: Character Head/Character Helmet
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 2329964412540424940, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    attribute: m_Sprite
-    path: Character Body
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 8592820463791942687, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    attribute: m_Sprite
-    path: Character Feet 2
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 8592820463791942687, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    attribute: m_Sprite
-    path: Character Feet
-    classID: 212
-    script: {fileID: 0}
+  m_PPtrCurves: []
   m_SampleRate: 30
   m_WrapMode: 0
   m_Bounds:
@@ -283,47 +248,7 @@ AnimationClip:
       typeID: 4
       customType: 0
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 2799387388
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 1424988371
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 3665870802
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 2501843548
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 1071636655
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    pptrCurveMapping:
-    - {fileID: 3422550722109570269, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    - {fileID: 7509895763639388875, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    - {fileID: 2329964412540424940, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    - {fileID: 8592820463791942687, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-    - {fileID: 8592820463791942687, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -10,14 +10,22 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Transform target;
 
-    [Tooltip("Speed of the camera")]
+    [Tooltip("Time of the camera repositining by SmoothDamp")]
     [SerializeField]
-    private float speed;
+    private float smoothTime;
+    private Vector2 velocity = Vector2.zero;
 
     [Tooltip("Distance for the camera to look ahead in the direction of the camera")]
     [SerializeField]
     private float lookAheadForce;
 
+
+    private void Awake()
+    {
+        Vector3 newPos = target.position;
+        newPos.z = transform.position.z;
+        transform.position = newPos;
+    }
     void LateUpdate()
     {
         FollowTarget();
@@ -52,7 +60,7 @@ public class CameraFollow : MonoBehaviour
 
 
         // Mantain the camera in the right z position
-        Vector3 newPosition = Vector2.Lerp(transform.position, desiredPosition, speed * Time.deltaTime);
+        Vector3 newPosition = Vector2.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
         newPosition.z = transform.position.z;
 
         transform.position = newPosition;
