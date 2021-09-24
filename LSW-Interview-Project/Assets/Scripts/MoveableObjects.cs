@@ -93,24 +93,24 @@ public class MoveableObjects : MonoBehaviour
             case Direction.up:
                 transform.localScale = startScale;
                 animator.SetFloat("InputX", 0);
-                animator.SetFloat("Inputy", 1);
+                animator.SetFloat("InputY", 1);
                 break;
             case Direction.down:
                 transform.localScale = startScale;
                 animator.SetFloat("InputX", 0);
-                animator.SetFloat("Inputy", -1);
+                animator.SetFloat("InputY", -1);
                 break;
             case Direction.left:
                 Vector3 newScale = startScale;
                 newScale.x *= -1;
                 transform.localScale = newScale;
                 animator.SetFloat("InputX", -1);
-                animator.SetFloat("Inputy", 0);
+                animator.SetFloat("InputY", 0);
                 break;
             case Direction.right:
                 transform.localScale = startScale;
                 animator.SetFloat("InputX", 1);
-                animator.SetFloat("Inputy", 0);
+                animator.SetFloat("InputY", 0);
                 break;
         }
         animator.SetFloat("Speed", direction.sqrMagnitude * speed * Time.deltaTime);
