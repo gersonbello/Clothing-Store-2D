@@ -19,6 +19,13 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private float lookAheadForce;
 
+    [Tooltip("The max x and y position")]
+    [SerializeField]
+    private Vector2 maxCameraPosition;
+    [Tooltip("The min x and y position")]
+    [SerializeField]
+    private Vector2 minCameraPosition;
+
 
     private void Awake()
     {
@@ -58,9 +65,10 @@ public class CameraFollow : MonoBehaviour
         else
             desiredPosition = target.position;
 
-
+        Vector3 newPosition = Vector2.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime, Mathf.Infinity, Time.deltaTime);
         // Mantain the camera in the right z position
-        Vector3 newPosition = Vector2.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
+        newPosition.x = Mathf.Clamp(newPosition.x, minCameraPosition.x, maxCameraPosition.x);
+        newPosition.y = Mathf.Clamp(newPosition.y, minCameraPosition.y, maxCameraPosition.y);
         newPosition.z = transform.position.z;
 
         transform.position = newPosition;

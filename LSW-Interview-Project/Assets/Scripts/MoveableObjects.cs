@@ -10,7 +10,8 @@ public enum Direction
     up,
     down,
     left,
-    right
+    right,
+    empty
 }
 
 public class MoveableObjects : MonoBehaviour
@@ -97,7 +98,7 @@ public class MoveableObjects : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the last direction the object moved
+    /// Gets the last direction the object moved, can't be empty
     /// </summary>
     /// <param name="direction"></param>
     protected void GetObjectDirection(Vector2 direction)
@@ -112,7 +113,26 @@ public class MoveableObjects : MonoBehaviour
             {
                 lastMovementDirection = direction.y == 1 ? Direction.up : Direction.down;
             }
-        }   
+        }
+    }
+    /// <summary>
+    /// Gets the new direction to the refered direction variable
+    /// </summary>
+    /// <param name="direction">Moviment direction</param>
+    /// <param name="newDirection">Direction variable</param>
+    protected void GetObjectDirection(Vector2 direction, ref Direction newDirection)
+    {
+        if (direction.magnitude != 0)
+        {
+            if (direction.x != 0)
+            {
+                newDirection = direction.x == 1 ? Direction.right : Direction.left;
+            }
+            else
+            {
+                newDirection = direction.y == 1 ? Direction.up : Direction.down;
+            }
+        } else newDirection = Direction.empty;
     }
     #endregion
 
@@ -123,56 +143,24 @@ public class MoveableObjects : MonoBehaviour
     /// <param name="direction"></param>
     protected void HandleAnimation(Vector2 direction)
     {
-        switch (lastMovementDirection)
+        Direction newDirection = new Direction();
+        GetObjectDirection(direction, ref newDirection);
+        switch (newDirection)
         {
             case Direction.up:
-
-                // Change the skin based on equiped skin and direction
-                if (animate)
-                {
-                    SetSkin(hatSkinRenderer, hatSkin.hatUp);
-                    SetSkin(headSkinRenderer, headSkin.headUp);
-                    SetSkin(bodySkinRenderer, bodySkin.bodyUp);
-                    SetSkin(hand1SkinRenderer, handsSkin.handsUp);
-                    SetSkin(hand2SkinRenderer, handsSkin.handsUp);
-                    SetSkin(foot1SkinRenderer, feetSkin.feetUp);
-                    SetSkin(foot2SkinRenderer, feetSkin.feetUp);
-                }
-
+                ChangeSkin(newDirection);
                 transform.localScale = startScale;
                 animator.SetFloat("InputX", 0);
                 animator.SetFloat("InputY", 1);
                 break;
             case Direction.down:
-
-                if (animate)
-                {
-                    SetSkin(hatSkinRenderer, hatSkin.hatDown);
-                    SetSkin(headSkinRenderer, headSkin.headDown);
-                    SetSkin(bodySkinRenderer, bodySkin.bodyDown);
-                    SetSkin(hand1SkinRenderer, handsSkin.handsDown);
-                    SetSkin(foot1SkinRenderer, feetSkin.feetDown);
-                    SetSkin(hand2SkinRenderer, handsSkin.handsDown);
-                    SetSkin(foot2SkinRenderer, feetSkin.feetDown);
-                }
-
+                ChangeSkin(newDirection);
                 transform.localScale = startScale;
                 animator.SetFloat("InputX", 0);
                 animator.SetFloat("InputY", -1);
                 break;
             case Direction.left:
-
-                if (animate)
-                {
-                    SetSkin(hatSkinRenderer, hatSkin.hatLeft);
-                    SetSkin(headSkinRenderer, headSkin.headLeft);
-                    SetSkin(bodySkinRenderer, bodySkin.bodyLeft);
-                    SetSkin(hand1SkinRenderer, handsSkin.handsLeft);
-                    SetSkin(foot1SkinRenderer, feetSkin.feetLeft);
-                    SetSkin(hand2SkinRenderer, handsSkin.handsLeft);
-                    SetSkin(foot2SkinRenderer, feetSkin.feetLeft);
-                }
-
+                ChangeSkin(newDirection);
                 Vector3 newScale = startScale;
                 newScale.x *= -1;
                 transform.localScale = newScale;
@@ -180,24 +168,112 @@ public class MoveableObjects : MonoBehaviour
                 animator.SetFloat("InputY", 0);
                 break;
             case Direction.right:
-
-                if (animate)
-                {
-                    SetSkin(hatSkinRenderer, hatSkin.hatRight);
-                    SetSkin(headSkinRenderer, headSkin.headRight);
-                    SetSkin(bodySkinRenderer, bodySkin.bodyRight);
-                    SetSkin(hand1SkinRenderer, handsSkin.handsRight);
-                    SetSkin(foot1SkinRenderer, feetSkin.feetRight);
-                    SetSkin(hand2SkinRenderer, handsSkin.handsRight);
-                    SetSkin(foot2SkinRenderer, feetSkin.feetRight);
-                }
-
+                ChangeSkin(newDirection);
                 transform.localScale = startScale;
                 animator.SetFloat("InputX", 1);
                 animator.SetFloat("InputY", 0);
                 break;
+            case Direction.empty:
+                animator.SetFloat("InputX", 0);
+                animator.SetFloat("InputY", 0);
+                break;
         }
         animator.SetFloat("Speed", direction.sqrMagnitude * speed * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Change the skin based on equiped skin and direction
+    /// </summary>
+    /// <param name="skinRenderer">SpriteRenderer to be changed</param>
+    /// <param name="newSkin">New sprite</param>
+    protected void ChangeSkin(Direction newDirection)
+    {
+        switch (newDirection)
+        {
+            case Direction.up:
+                SetSkin(hatSkinRenderer, hatSkin.hatUp);
+                SetSkin(headSkinRenderer, headSkin.headUp);
+                SetSkin(bodySkinRenderer, bodySkin.bodyUp);
+                SetSkin(hand1SkinRenderer, handsSkin.handsUp);
+                SetSkin(hand2SkinRenderer, handsSkin.handsUp);
+                SetSkin(foot1SkinRenderer, feetSkin.feetUp);
+                SetSkin(foot2SkinRenderer, feetSkin.feetUp);
+                break;
+            case Direction.down:
+                SetSkin(hatSkinRenderer, hatSkin.hatDown);
+                SetSkin(headSkinRenderer, headSkin.headDown);
+                SetSkin(bodySkinRenderer, bodySkin.bodyDown);
+                SetSkin(hand1SkinRenderer, handsSkin.handsDown);
+                SetSkin(foot1SkinRenderer, feetSkin.feetDown);
+                SetSkin(hand2SkinRenderer, handsSkin.handsDown);
+                SetSkin(foot2SkinRenderer, feetSkin.feetDown);
+                break;
+            case Direction.left:
+                SetSkin(hatSkinRenderer, hatSkin.hatLeft);
+                SetSkin(headSkinRenderer, headSkin.headLeft);
+                SetSkin(bodySkinRenderer, bodySkin.bodyLeft);
+                SetSkin(hand1SkinRenderer, handsSkin.handsLeft);
+                SetSkin(foot1SkinRenderer, feetSkin.feetLeft);
+                SetSkin(hand2SkinRenderer, handsSkin.handsLeft);
+                SetSkin(foot2SkinRenderer, feetSkin.feetLeft);
+                break;
+            case Direction.right:
+                SetSkin(hatSkinRenderer, hatSkin.hatRight);
+                SetSkin(headSkinRenderer, headSkin.headRight);
+                SetSkin(bodySkinRenderer, bodySkin.bodyRight);
+                SetSkin(hand1SkinRenderer, handsSkin.handsRight);
+                SetSkin(foot1SkinRenderer, feetSkin.feetRight);
+                SetSkin(hand2SkinRenderer, handsSkin.handsRight);
+                SetSkin(foot2SkinRenderer, feetSkin.feetRight);
+                break;
+        }
+    }
+    /// <summary>
+    /// Change the skin based on equiped skin and direction
+    /// </summary>
+    /// <param name="skinRenderer">SpriteRenderer to be changed</param>
+    /// <param name="newSkin">New sprite</param>
+    protected void ChangeSkin()
+    {
+        switch (lastMovementDirection)
+        {
+            case Direction.up:
+                SetSkin(hatSkinRenderer, hatSkin.hatUp);
+                SetSkin(headSkinRenderer, headSkin.headUp);
+                SetSkin(bodySkinRenderer, bodySkin.bodyUp);
+                SetSkin(hand1SkinRenderer, handsSkin.handsUp);
+                SetSkin(hand2SkinRenderer, handsSkin.handsUp);
+                SetSkin(foot1SkinRenderer, feetSkin.feetUp);
+                SetSkin(foot2SkinRenderer, feetSkin.feetUp);
+                break;
+            case Direction.down:
+                SetSkin(hatSkinRenderer, hatSkin.hatDown);
+                SetSkin(headSkinRenderer, headSkin.headDown);
+                SetSkin(bodySkinRenderer, bodySkin.bodyDown);
+                SetSkin(hand1SkinRenderer, handsSkin.handsDown);
+                SetSkin(foot1SkinRenderer, feetSkin.feetDown);
+                SetSkin(hand2SkinRenderer, handsSkin.handsDown);
+                SetSkin(foot2SkinRenderer, feetSkin.feetDown);
+                break;
+            case Direction.left:
+                SetSkin(hatSkinRenderer, hatSkin.hatLeft);
+                SetSkin(headSkinRenderer, headSkin.headLeft);
+                SetSkin(bodySkinRenderer, bodySkin.bodyLeft);
+                SetSkin(hand1SkinRenderer, handsSkin.handsLeft);
+                SetSkin(foot1SkinRenderer, feetSkin.feetLeft);
+                SetSkin(hand2SkinRenderer, handsSkin.handsLeft);
+                SetSkin(foot2SkinRenderer, feetSkin.feetLeft);
+                break;
+            case Direction.right:
+                SetSkin(hatSkinRenderer, hatSkin.hatRight);
+                SetSkin(headSkinRenderer, headSkin.headRight);
+                SetSkin(bodySkinRenderer, bodySkin.bodyRight);
+                SetSkin(hand1SkinRenderer, handsSkin.handsRight);
+                SetSkin(foot1SkinRenderer, feetSkin.feetRight);
+                SetSkin(hand2SkinRenderer, handsSkin.handsRight);
+                SetSkin(foot2SkinRenderer, feetSkin.feetRight);
+                break;
+        }
     }
 
     /// <summary>
