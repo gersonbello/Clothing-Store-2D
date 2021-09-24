@@ -84,7 +84,7 @@ public class MoveableObjects : MonoBehaviour
     {
         GetObjectDirection(direction);
         Vector2 objectPosition = transform.position;
-        rigidBody.MovePosition(objectPosition + direction * speed * Time.deltaTime);
+        rigidBody.MovePosition(objectPosition + direction * speed * Time.fixedDeltaTime);
     }
     /// <summary>
     ///  Used for execute the moviment to the desired position
@@ -94,7 +94,7 @@ public class MoveableObjects : MonoBehaviour
     protected void Move(Vector2 newPosition, int? newSpeed)
     {
         GetObjectDirection((Vector2)transform.position - newPosition);
-        rigidBody.MovePosition(newPosition * (newSpeed.HasValue ? newSpeed.Value : speed) * Time.deltaTime);
+        rigidBody.MovePosition(newPosition * (newSpeed.HasValue ? newSpeed.Value : speed) * Time.fixedDeltaTime);
     }
 
     /// <summary>
