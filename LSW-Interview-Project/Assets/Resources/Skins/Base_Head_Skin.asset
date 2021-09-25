@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb60073a6b8e6c4fa64b0f47c7ea732, type: 3}
+  m_Name: Base_Head_Skin
+  m_EditorClassIdentifier: 
+  bought: 0
+  skinName: Tomato Head
+  Up: {fileID: 5020757429722616596, guid: 47ef6f32545735340a899277098337db, type: 3}
+  Down: {fileID: 3422550722109570269, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
+  Right: {fileID: 4011754869034626722, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  Left: {fileID: 4011754869034626722, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}

@@ -8,8 +8,8 @@ using UnityEngine;
 public enum Direction
 {
     up,
-    down,
     left,
+    down,
     right,
     empty
 }
@@ -149,27 +149,21 @@ public class MoveableObjects : MonoBehaviour
         {
             case Direction.up:
                 ChangeSkin(newDirection);
-                transform.localScale = startScale;
                 animator.SetFloat("InputX", 0);
                 animator.SetFloat("InputY", 1);
                 break;
             case Direction.down:
                 ChangeSkin(newDirection);
-                transform.localScale = startScale;
                 animator.SetFloat("InputX", 0);
                 animator.SetFloat("InputY", -1);
                 break;
             case Direction.left:
                 ChangeSkin(newDirection);
-                Vector3 newScale = startScale;
-                newScale.x *= -1;
-                transform.localScale = newScale;
                 animator.SetFloat("InputX", -1);
                 animator.SetFloat("InputY", 0);
                 break;
             case Direction.right:
                 ChangeSkin(newDirection);
-                transform.localScale = startScale;
                 animator.SetFloat("InputX", 1);
                 animator.SetFloat("InputY", 0);
                 break;
@@ -186,45 +180,51 @@ public class MoveableObjects : MonoBehaviour
     /// </summary>
     /// <param name="skinRenderer">SpriteRenderer to be changed</param>
     /// <param name="newSkin">New sprite</param>
-    protected void ChangeSkin(Direction newDirection)
+    public void ChangeSkin(Direction newDirection)
     {
         switch (newDirection)
         {
             case Direction.up:
-                SetSkin(hatSkinRenderer, hatSkin.hatUp);
-                SetSkin(headSkinRenderer, headSkin.headUp);
-                SetSkin(bodySkinRenderer, bodySkin.bodyUp);
-                SetSkin(hand1SkinRenderer, handsSkin.handsUp);
-                SetSkin(hand2SkinRenderer, handsSkin.handsUp);
-                SetSkin(foot1SkinRenderer, feetSkin.feetUp);
-                SetSkin(foot2SkinRenderer, feetSkin.feetUp);
+                transform.localScale = startScale;
+                SetSkin(hatSkinRenderer, hatSkin.Up);
+                SetSkin(headSkinRenderer, headSkin.Up);
+                SetSkin(bodySkinRenderer, bodySkin.Up);
+                SetSkin(hand1SkinRenderer, handsSkin.Up);
+                SetSkin(hand2SkinRenderer, handsSkin.Up);
+                SetSkin(foot1SkinRenderer, feetSkin.Up);
+                SetSkin(foot2SkinRenderer, feetSkin.Up);
                 break;
             case Direction.down:
-                SetSkin(hatSkinRenderer, hatSkin.hatDown);
-                SetSkin(headSkinRenderer, headSkin.headDown);
-                SetSkin(bodySkinRenderer, bodySkin.bodyDown);
-                SetSkin(hand1SkinRenderer, handsSkin.handsDown);
-                SetSkin(foot1SkinRenderer, feetSkin.feetDown);
-                SetSkin(hand2SkinRenderer, handsSkin.handsDown);
-                SetSkin(foot2SkinRenderer, feetSkin.feetDown);
+                transform.localScale = startScale;
+                SetSkin(hatSkinRenderer, hatSkin.Down);
+                SetSkin(headSkinRenderer, headSkin.Down);
+                SetSkin(bodySkinRenderer, bodySkin.Down);
+                SetSkin(hand1SkinRenderer, handsSkin.Down);
+                SetSkin(foot1SkinRenderer, feetSkin.Down);
+                SetSkin(hand2SkinRenderer, handsSkin.Down);
+                SetSkin(foot2SkinRenderer, feetSkin.Down);
                 break;
             case Direction.left:
-                SetSkin(hatSkinRenderer, hatSkin.hatLeft);
-                SetSkin(headSkinRenderer, headSkin.headLeft);
-                SetSkin(bodySkinRenderer, bodySkin.bodyLeft);
-                SetSkin(hand1SkinRenderer, handsSkin.handsLeft);
-                SetSkin(foot1SkinRenderer, feetSkin.feetLeft);
-                SetSkin(hand2SkinRenderer, handsSkin.handsLeft);
-                SetSkin(foot2SkinRenderer, feetSkin.feetLeft);
+                Vector3 newScale = startScale;
+                newScale.x *= -1;
+                transform.localScale = newScale;
+                SetSkin(hatSkinRenderer, hatSkin.Left);
+                SetSkin(headSkinRenderer, headSkin.Left);
+                SetSkin(bodySkinRenderer, bodySkin.Left);
+                SetSkin(hand1SkinRenderer, handsSkin.Left);
+                SetSkin(foot1SkinRenderer, feetSkin.Left);
+                SetSkin(hand2SkinRenderer, handsSkin.Left);
+                SetSkin(foot2SkinRenderer, feetSkin.Left);
                 break;
             case Direction.right:
-                SetSkin(hatSkinRenderer, hatSkin.hatRight);
-                SetSkin(headSkinRenderer, headSkin.headRight);
-                SetSkin(bodySkinRenderer, bodySkin.bodyRight);
-                SetSkin(hand1SkinRenderer, handsSkin.handsRight);
-                SetSkin(foot1SkinRenderer, feetSkin.feetRight);
-                SetSkin(hand2SkinRenderer, handsSkin.handsRight);
-                SetSkin(foot2SkinRenderer, feetSkin.feetRight);
+                transform.localScale = startScale;
+                SetSkin(hatSkinRenderer, hatSkin.Right);
+                SetSkin(headSkinRenderer, headSkin.Right);
+                SetSkin(bodySkinRenderer, bodySkin.Right);
+                SetSkin(hand1SkinRenderer, handsSkin.Right);
+                SetSkin(foot1SkinRenderer, feetSkin.Right);
+                SetSkin(hand2SkinRenderer, handsSkin.Right);
+                SetSkin(foot2SkinRenderer, feetSkin.Right);
                 break;
         }
     }
@@ -238,40 +238,46 @@ public class MoveableObjects : MonoBehaviour
         switch (lastMovementDirection)
         {
             case Direction.up:
-                SetSkin(hatSkinRenderer, hatSkin.hatUp);
-                SetSkin(headSkinRenderer, headSkin.headUp);
-                SetSkin(bodySkinRenderer, bodySkin.bodyUp);
-                SetSkin(hand1SkinRenderer, handsSkin.handsUp);
-                SetSkin(hand2SkinRenderer, handsSkin.handsUp);
-                SetSkin(foot1SkinRenderer, feetSkin.feetUp);
-                SetSkin(foot2SkinRenderer, feetSkin.feetUp);
+                transform.localScale = startScale;
+                SetSkin(hatSkinRenderer, hatSkin.Up);
+                SetSkin(headSkinRenderer, headSkin.Up);
+                SetSkin(bodySkinRenderer, bodySkin.Up);
+                SetSkin(hand1SkinRenderer, handsSkin.Up);
+                SetSkin(hand2SkinRenderer, handsSkin.Up);
+                SetSkin(foot1SkinRenderer, feetSkin.Up);
+                SetSkin(foot2SkinRenderer, feetSkin.Up);
                 break;
             case Direction.down:
-                SetSkin(hatSkinRenderer, hatSkin.hatDown);
-                SetSkin(headSkinRenderer, headSkin.headDown);
-                SetSkin(bodySkinRenderer, bodySkin.bodyDown);
-                SetSkin(hand1SkinRenderer, handsSkin.handsDown);
-                SetSkin(foot1SkinRenderer, feetSkin.feetDown);
-                SetSkin(hand2SkinRenderer, handsSkin.handsDown);
-                SetSkin(foot2SkinRenderer, feetSkin.feetDown);
+                transform.localScale = startScale;
+                SetSkin(hatSkinRenderer, hatSkin.Down);
+                SetSkin(headSkinRenderer, headSkin.Down);
+                SetSkin(bodySkinRenderer, bodySkin.Down);
+                SetSkin(hand1SkinRenderer, handsSkin.Down);
+                SetSkin(foot1SkinRenderer, feetSkin.Down);
+                SetSkin(hand2SkinRenderer, handsSkin.Down);
+                SetSkin(foot2SkinRenderer, feetSkin.Down);
                 break;
             case Direction.left:
-                SetSkin(hatSkinRenderer, hatSkin.hatLeft);
-                SetSkin(headSkinRenderer, headSkin.headLeft);
-                SetSkin(bodySkinRenderer, bodySkin.bodyLeft);
-                SetSkin(hand1SkinRenderer, handsSkin.handsLeft);
-                SetSkin(foot1SkinRenderer, feetSkin.feetLeft);
-                SetSkin(hand2SkinRenderer, handsSkin.handsLeft);
-                SetSkin(foot2SkinRenderer, feetSkin.feetLeft);
+                Vector3 newScale = startScale;
+                newScale.x *= -1;
+                transform.localScale = newScale;
+                SetSkin(hatSkinRenderer, hatSkin.Left);
+                SetSkin(headSkinRenderer, headSkin.Left);
+                SetSkin(bodySkinRenderer, bodySkin.Left);
+                SetSkin(hand1SkinRenderer, handsSkin.Left);
+                SetSkin(foot1SkinRenderer, feetSkin.Left);
+                SetSkin(hand2SkinRenderer, handsSkin.Left);
+                SetSkin(foot2SkinRenderer, feetSkin.Left);
                 break;
             case Direction.right:
-                SetSkin(hatSkinRenderer, hatSkin.hatRight);
-                SetSkin(headSkinRenderer, headSkin.headRight);
-                SetSkin(bodySkinRenderer, bodySkin.bodyRight);
-                SetSkin(hand1SkinRenderer, handsSkin.handsRight);
-                SetSkin(foot1SkinRenderer, feetSkin.feetRight);
-                SetSkin(hand2SkinRenderer, handsSkin.handsRight);
-                SetSkin(foot2SkinRenderer, feetSkin.feetRight);
+                transform.localScale = startScale;
+                SetSkin(hatSkinRenderer, hatSkin.Right);
+                SetSkin(headSkinRenderer, headSkin.Right);
+                SetSkin(bodySkinRenderer, bodySkin.Right);
+                SetSkin(hand1SkinRenderer, handsSkin.Right);
+                SetSkin(foot1SkinRenderer, feetSkin.Right);
+                SetSkin(hand2SkinRenderer, handsSkin.Right);
+                SetSkin(foot2SkinRenderer, feetSkin.Right);
                 break;
         }
     }
@@ -284,6 +290,20 @@ public class MoveableObjects : MonoBehaviour
     protected void SetSkin(SpriteRenderer skinRenderer, Sprite newSkin)
     {
         skinRenderer.sprite = newSkin;
+    }
+
+    /// <summary>
+    /// Changing the Sprite in this metod for easily update it later
+    /// </summary>
+    /// <param name="skinRenderer">SpriteRenderer to be changed</param>
+    /// <param name="newSkin">New sprite</param>
+    public void SetSkin(Skin newSkin, StoreSection section)
+    {
+        switch (section)
+        {
+            case StoreSection.Hats: hatSkin = newSkin; break;
+        }
+        ChangeSkin();
     }
     #endregion
 }

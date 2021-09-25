@@ -27,6 +27,7 @@ public class MoneyController : MonoBehaviour
     private void Start()
     {
         moneyAddTextStartPosition = moneyAddText.transform.position;
+        moneyAddText.color = new Color(0, 0, 0, 0);
     }
 
     /// <summary>

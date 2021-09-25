@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     //The base sorting value for all sorting objects
-    public static int baseSortingValue { get { return 5000; } }
+    public static int baseSortingValue { get { return 100000; } }
 
     void Start()
     {
@@ -39,13 +39,13 @@ public static class Extensions
         {
             if (s.gameObject.isStatic == statics)
             {
-                Bounds objectBounds = s.GetComponent<Collider2D>().bounds;
-                if (objectBounds != null)
+                if (s.GetComponent<Collider2D>() != null)
                 {
+                    Bounds objectBounds = s.GetComponent<Collider2D>().bounds;
                     float objectBottom = objectBounds.center.y - (objectBounds.size.y /2);
-                    s.sortingOrder = (int)(GameController.baseSortingValue - objectBottom);
+                    s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom) /.1f);
                 }
-                else s.sortingOrder = (int)(GameController.baseSortingValue - s.transform.position.y);
+                else s.sortingOrder = (int)((GameController.baseSortingValue - s.transform.position.y) / .1f);
             }
         }
     }
@@ -61,13 +61,13 @@ public static class Extensions
         {
             if (s.gameObject.isStatic == statics)
             {
-                Bounds objectBounds = s.GetComponent<Collider2D>().bounds;
-                if (objectBounds != null)
+                if (s.GetComponent<Collider2D>() != null)
                 {
+                    Bounds objectBounds = s.GetComponent<Collider2D>().bounds;
                     float objectBottom = objectBounds.center.y - (objectBounds.size.y / 2);
-                    s.sortingOrder = (int)(GameController.baseSortingValue - objectBottom);
+                    s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom) / .1f);
                 }
-                else s.sortingOrder = (int)(GameController.baseSortingValue - s.transform.position.y);
+                else s.sortingOrder = (int)((GameController.baseSortingValue - s.transform.position.y) / .1f);
             }
         }
     }
@@ -83,7 +83,7 @@ public static class Extensions
         {
             Bounds objectBounds = baseCollider.GetComponent<Collider2D>().bounds;
             float objectBottom = objectBounds.center.y - (objectBounds.size.y / 2);
-            s.sortingOrder = (int)(GameController.baseSortingValue - objectBottom);
+            s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom) / .1f);
         }
     }
 
@@ -98,7 +98,7 @@ public static class Extensions
         {
             Bounds objectBounds = baseCollider.GetComponent<Collider2D>().bounds;
             float objectBottom = objectBounds.center.y - (objectBounds.size.y / 2);
-            s.sortingOrder = (int)(GameController.baseSortingValue - objectBottom);
+            s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom)/ .1f);
         }
     }
 

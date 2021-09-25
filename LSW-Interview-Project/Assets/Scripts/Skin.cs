@@ -8,33 +8,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skin")]
 public class Skin : ScriptableObject
 {
-    [Header("Hat")]
-    public Sprite hatUp;
-    public Sprite hatDown;
-    public Sprite hatRight;
-    public Sprite hatLeft;
+    [Header("Skin Status")]
+    public bool bought;
 
-    [Header("Head")]
-    public Sprite headUp;
-    public Sprite headDown;
-    public Sprite headRight;
-    public Sprite headLeft;
-
-    [Header("Body")]
-    public Sprite bodyUp;
-    public Sprite bodyDown;
-    public Sprite bodyRight;
-    public Sprite bodyLeft;
-
-    [Header("Hand")]
-    public Sprite handsUp;
-    public Sprite handsDown;
-    public Sprite handsRight;
-    public Sprite handsLeft;
-
-    [Header("Feet")]
-    public Sprite feetUp;
-    public Sprite feetDown;
-    public Sprite feetRight;
-    public Sprite feetLeft;
+    [Header("Skin References")]
+    public string skinName;
+    public Sprite Up;
+    public Sprite Down;
+    public Sprite Right;
+    public Sprite Left;
 }

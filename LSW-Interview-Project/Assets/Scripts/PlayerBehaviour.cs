@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class PlayerBehaviour : MoveableObjects
 {
+    [Header("Player Status Configuration")]
+    [Tooltip("Set if the player will respond to the input")]
+    [SerializeField]
+    private bool getInput = true;
+
+
     void Update()
     {
+        if (!getInput) return;
         Vector2 inputDirection = GetInputAxis();
         Move(inputDirection);
         HandleAnimation(inputDirection);
