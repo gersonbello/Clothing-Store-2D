@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTextureOverObject: {fileID: 0}
-  cursorOverHotspot: {x: 15, y: 15}
+  cursorOverHotspot: {x: 0, y: 0}
   cursorTextureMouseDownObject: {fileID: 0}
-  cursorOnMouseDownHotspot: {x: 15, y: 15}
+  cursorOnMouseDownHotspot: {x: 0, y: 0}
   OnClicked:
     m_PersistentCalls:
       m_Calls:

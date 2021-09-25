@@ -7,17 +7,13 @@ public class InteractableObject : MonoBehaviour
 {
     [Header("Mouse Interaction Configuration")]
     [Tooltip("Mouse cursor over this object")]
-    [SerializeField]
-    protected Texture2D cursorTextureOverObject;
+    public Texture2D cursorTextureOverObject;
     [Tooltip("Position of the cursor when over boject")]
-    [SerializeField]
-    protected Vector2 cursorOverHotspot = new Vector2(15, 15);
+    public Vector2 cursorOverHotspot = new Vector2(15, 15);
     [Tooltip("Mouse cursor when mouse down on this object")]
-    [SerializeField]
-    protected Texture2D cursorTextureMouseDownObject;
+    public Texture2D cursorTextureMouseDownObject;
     [Tooltip("Position of the cursor when select object")]
-    [SerializeField]
-    protected Vector2 cursorOnMouseDownHotspot = new Vector2(15, 15);
+    public Vector2 cursorOnMouseDownHotspot = new Vector2(15, 15);
 
 
     [Header("Object Events Configuration")]
@@ -45,5 +41,11 @@ public class InteractableObject : MonoBehaviour
         Cursor.SetCursor(cursorTextureMouseDownObject, cursorOnMouseDownHotspot, CursorMode.Auto);
         GameController.gcInstance.StartCoroutine(GameController.gcInstance.RestoreCursorAfter(.1f, gameObject, cursorTextureOverObject, cursorOverHotspot));
         OnClicked.Invoke();
+    }
+
+    private void OnMouseUp()
+    {
+        GameController.gcInstance.StopCoroutine("RestoreCursorAfter");
+        Cursor.SetCursor(cursorTextureOverObject, cursorOverHotspot, CursorMode.Auto);
     }
 }

@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     [Header("Cursor Options")]
     [Tooltip("Base Cursor Texture")]
     public Texture2D baseCursorTexture;
+    [Tooltip("Base Cursor Over Button Texture")]
+    public Texture2D baseCursorOverButtonTexture;
+    // Is generic button cursor active
+    bool cursorOverButton;
 
 
     //The base sorting value for all sorting objects
@@ -50,6 +56,7 @@ public class GameController : MonoBehaviour
         }
 
         baseCursorTexture = Resources.Load<Texture2D>("Sprites/Cursors/BaseCursor");
+        baseCursorOverButtonTexture = Resources.Load<Texture2D>("Sprites/Cursors/HandPointingCursor");
     }
 
     void Start()
@@ -61,10 +68,13 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && worldGrid != null && playerBehaviour != null)
+        if (Input.GetMouseButtonDown(1) && !IsPointerOverObject(Input.mousePosition) && worldGrid != null && playerBehaviour != null)
         {
-            Vector3 playerPos = playerBehaviour.transform.position;
             playerBehaviour.SetPath();
+        }
+        if(IsPointerOverObject(Input.mousePosition) || cursorOverButton)
+        {
+            VerifyButtonCursorInteraction(Input.mousePosition);
         }
     }
 
@@ -92,6 +102,46 @@ public class GameController : MonoBehaviour
             Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
         else Cursor.SetCursor(mouseOverObjectTexture, overHotspot, CursorMode.Auto);
     }
+
+    /// <summary>
+    /// Veify any raycast target at position
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public bool IsPointerOverObject(Vector2 pos)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(pos.x, pos.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
+
+    /// <summary>
+    /// Veify any raycast target at position
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public void VerifyButtonCursorInteraction(Vector2 pos)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(pos.x, pos.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        foreach(RaycastResult r in results)
+        {
+            Button interactableObject = r.gameObject.GetComponent<Button>();
+            if (interactableObject != null)
+            {
+                cursorOverButton = true;
+                Cursor.SetCursor(baseCursorOverButtonTexture, new Vector2(0, 10), CursorMode.Auto);
+                return;
+            }
+        }
+        cursorOverButton = false;
+        Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
+    }
+
 }
 
 // Extensions used to aply methods in the base of object type
