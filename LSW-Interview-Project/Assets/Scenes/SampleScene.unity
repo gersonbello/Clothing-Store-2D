@@ -1730,7 +1730,6 @@ GameObject:
   - component: {fileID: 373335817}
   - component: {fileID: 373335816}
   - component: {fileID: 373335815}
-  - component: {fileID: 373335818}
   m_Layer: 5
   m_Name: Previous Button
   m_TagString: Untagged
@@ -1851,25 +1850,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373335813}
   m_CullTransparentMesh: 1
---- !u!114 &373335818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373335813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &392440649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,7 +2464,6 @@ GameObject:
   - component: {fileID: 462602068}
   - component: {fileID: 462602067}
   - component: {fileID: 462602066}
-  - component: {fileID: 462602069}
   m_Layer: 5
   m_Name: Next Direction Button
   m_TagString: Untagged
@@ -2605,25 +2584,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462602064}
   m_CullTransparentMesh: 1
---- !u!114 &462602069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462602064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &470029288
 GameObject:
   m_ObjectHideFlags: 0
@@ -4645,7 +4605,6 @@ GameObject:
   - component: {fileID: 854846489}
   - component: {fileID: 854846488}
   - component: {fileID: 854846487}
-  - component: {fileID: 854846490}
   m_Layer: 5
   m_Name: Buy/(Un)Equip Button
   m_TagString: Untagged
@@ -4766,25 +4725,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854846485}
   m_CullTransparentMesh: 1
---- !u!114 &854846490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854846485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &886539002
 GameObject:
   m_ObjectHideFlags: 0
@@ -6017,6 +5957,9 @@ MonoBehaviour:
   hand2SkinRenderer: {fileID: 1298409173}
   foot1SkinRenderer: {fileID: 1490410298}
   foot2SkinRenderer: {fileID: 188110740}
+  targetWalkEvents:
+    m_PersistentCalls:
+      m_Calls: []
   getInput: 1
 --- !u!4 &1066771606
 Transform:
@@ -6069,9 +6012,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.27539772}
+  m_Offset: {x: 0, y: -0.04102093}
   serializedVersion: 2
-  m_Radius: 0.30399472
+  m_Radius: 0.17155594
 --- !u!1 &1076643339
 GameObject:
   m_ObjectHideFlags: 0
@@ -6871,7 +6814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165996687}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.58, y: 10.51, z: 0}
+  m_LocalPosition: {x: 0, y: 16.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1462649781}
@@ -11928,7 +11871,6 @@ GameObject:
   - component: {fileID: 1308676951}
   - component: {fileID: 1308676950}
   - component: {fileID: 1308676949}
-  - component: {fileID: 1308676952}
   m_Layer: 0
   m_Name: Close Button
   m_TagString: Untagged
@@ -12050,25 +11992,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308676947}
   m_CullTransparentMesh: 1
---- !u!114 &1308676952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308676947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1327579510
 GameObject:
   m_ObjectHideFlags: 0
@@ -12646,7 +12569,6 @@ GameObject:
   - component: {fileID: 1401306110}
   - component: {fileID: 1401306109}
   - component: {fileID: 1401306108}
-  - component: {fileID: 1401306111}
   m_Layer: 5
   m_Name: Next Button
   m_TagString: Untagged
@@ -12767,25 +12689,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401306106}
   m_CullTransparentMesh: 1
---- !u!114 &1401306111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1401306106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1429154795
 GameObject:
   m_ObjectHideFlags: 0
@@ -13950,6 +13853,9 @@ MonoBehaviour:
   hand2SkinRenderer: {fileID: 1466916197}
   foot1SkinRenderer: {fileID: 2124978619}
   foot2SkinRenderer: {fileID: 263473259}
+  targetWalkEvents:
+    m_PersistentCalls:
+      m_Calls: []
   getInput: 0
 --- !u!50 &1573647753
 Rigidbody2D:
@@ -15033,7 +14939,6 @@ GameObject:
   - component: {fileID: 1702325161}
   - component: {fileID: 1702325160}
   - component: {fileID: 1702325159}
-  - component: {fileID: 1702325162}
   m_Layer: 5
   m_Name: Sell Button
   m_TagString: Untagged
@@ -15142,25 +15047,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702325157}
   m_CullTransparentMesh: 1
---- !u!114 &1702325162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702325157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1710872958
 GameObject:
   m_ObjectHideFlags: 0
@@ -15722,8 +15608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02787b1b5ff17bd4f9ec92acc0584bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeDiameter: 1.5
-  gridWorldScale: {x: 50, y: 50}
+  nodeDiameter: 0.5
+  gridWorldScale: {x: 55, y: 55}
   obstaclesLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -21691,7 +21577,6 @@ GameObject:
   - component: {fileID: 1929485532}
   - component: {fileID: 1929485535}
   - component: {fileID: 1929485534}
-  - component: {fileID: 1929485533}
   m_Layer: 5
   m_Name: Buy/(Un)Equip Button BKG
   m_TagString: Untagged
@@ -21720,25 +21605,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.11912327, y: -2.0133412}
   m_SizeDelta: {x: 75.8, y: 32.48}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1929485533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929485531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1929485534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22443,7 +22309,6 @@ GameObject:
   - component: {fileID: 2057717462}
   - component: {fileID: 2057717461}
   - component: {fileID: 2057717460}
-  - component: {fileID: 2057717463}
   m_Layer: 5
   m_Name: Previous Direction Button
   m_TagString: Untagged
@@ -22564,25 +22429,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057717458}
   m_CullTransparentMesh: 1
---- !u!114 &2057717463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2057717458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496b5ebfb79051b48b954943e6eb3d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTextureOverObject: {fileID: 2800000, guid: fde22ad39ce4a7d40ab732afa519bcf0, type: 3}
-  cursorOverHotspot: {x: 0, y: 0}
-  cursorTextureMouseDownObject: {fileID: 2800000, guid: 7d275a396726dcd42b4f480a690e00bc, type: 3}
-  cursorOnMouseDownHotspot: {x: 0, y: 0}
-  OnClicked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2097753293
 GameObject:
   m_ObjectHideFlags: 0

@@ -121,6 +121,39 @@ public class GridAndNodes : MonoBehaviour
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
+        targetNode.walkable = !Physics2D.OverlapBox(targetNode.nodedWorldPosition, new Vector2(nodeDiameter, nodeDiameter) / 2, 0, obstaclesLayers);
+
+        // Get every possible node inside 2 node distance
+        if (!targetNode.walkable)
+        {
+            List<Node> neighbours = GetNeighbours(targetNode);
+            foreach (Node n in neighbours)
+            {
+                if (n.walkable &&
+                    Vector2.Distance(n.nodedWorldPosition, startNode.nodedWorldPosition) <=
+                    Vector2.Distance(targetNode.nodedWorldPosition, startNode.nodedWorldPosition) ||
+                    n.walkable && !targetNode.walkable)
+                {
+                    targetNode = n;
+                }
+                else
+                {
+                    List<Node> neighbours2 = GetNeighbours(n);
+                    foreach (Node n2 in neighbours2)
+                    {
+                        if (n2.walkable &&
+                                Vector2.Distance(n2.nodedWorldPosition, startNode.nodedWorldPosition) <=
+                                Vector2.Distance(targetNode.nodedWorldPosition, startNode.nodedWorldPosition) ||
+                                n2.walkable && !targetNode.walkable)
+                        {
+                            targetNode = n2;
+                        }
+                    }
+                }
+            }
+            if (!targetNode.walkable) return;
+        }
+
         while (openSet.Count > 0)
         {
             Node currentNode = openSet[0];

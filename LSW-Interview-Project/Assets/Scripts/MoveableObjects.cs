@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Create a variable type to store direction of the movement
@@ -78,6 +79,10 @@ public class MoveableObjects : MonoBehaviour
     // Reference to the next node to walk in and the last one walked
     protected Node targetWalkNode, lastWalkNode;
 
+    // Events to execute after walking
+    [SerializeField]
+    protected UnityEvent targetWalkEvents;
+
     private void Start()
     {
         startScale = transform.localScale;
@@ -110,9 +115,40 @@ public class MoveableObjects : MonoBehaviour
     /// </summary>
     public void SetPath()
     {
+        targetWalkEvents = null;
         walkPath.Clear();
         walkPathQueue.Clear();
         GameController.gcInstance.worldGrid.FindPath(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), ref walkPath);
+        foreach (Node n in walkPath) walkPathQueue.Enqueue(n);
+        if (walkPath == null || walkPath.Count == 0) return;
+        targetWalkNode = walkPathQueue.Peek();
+        lastWalkNode = new Node(new Vector2(), transform.position, true);
+    }
+    /// <summary>
+    /// Set the path for automovement by mouse position with events at the end
+    /// </summary>
+    /// <param name="newEvents"></param>
+    public void SetPath(UnityEvent newEvents)
+    {
+        targetWalkEvents = newEvents;
+        walkPath.Clear();
+        walkPathQueue.Clear();
+        GameController.gcInstance.worldGrid.FindPath(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), ref walkPath);
+        foreach (Node n in walkPath) walkPathQueue.Enqueue(n);
+        if (walkPath == null || walkPath.Count == 0) return;
+        targetWalkNode = walkPathQueue.Peek();
+        lastWalkNode = new Node(new Vector2(), transform.position, true);
+    }
+    /// <summary>
+    /// Set the path for automovement with events at the end
+    /// </summary>
+    /// <param name="newEvents"></param>
+    public void SetPath(Vector2 targetPos,UnityEvent newEvents)
+    {
+        targetWalkEvents = newEvents;
+        walkPath.Clear();
+        walkPathQueue.Clear();
+        GameController.gcInstance.worldGrid.FindPath(transform.position, targetPos, ref walkPath);
         foreach (Node n in walkPath) walkPathQueue.Enqueue(n);
         if (walkPath == null || walkPath.Count == 0) return;
         targetWalkNode = walkPathQueue.Peek();
@@ -126,6 +162,13 @@ public class MoveableObjects : MonoBehaviour
         float distanceFromTarget = Vector2.Distance(transform.position, targetWalkNode.nodedWorldPosition);
         if (walkPathQueue.Count >= 0 && targetWalkNode != null)
         {
+            if(walkPathQueue.Count == 1 && targetWalkEvents != null && distanceFromTarget <= .1f)
+            {
+                targetWalkEvents.Invoke();
+                targetWalkNode = null;
+                HandleAnimation(new Vector2());
+                return;
+            }
             if (distanceFromTarget > .1f)
             {
                 GetObjectDirection((targetWalkNode.nodedWorldPosition - lastWalkNode.nodedWorldPosition));

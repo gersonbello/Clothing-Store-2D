@@ -40,7 +40,11 @@ public class InteractableObject : MonoBehaviour
     {
         Cursor.SetCursor(cursorTextureMouseDownObject, cursorOnMouseDownHotspot, CursorMode.Auto);
         GameController.gcInstance.StartCoroutine(GameController.gcInstance.RestoreCursorAfter(.1f, gameObject, cursorTextureOverObject, cursorOverHotspot));
-        OnClicked.Invoke();
+        if (Vector2.Distance(GameController.gcInstance.playerBehaviour.transform.position, transform.position) > 1f)
+        {
+            GameController.gcInstance.playerBehaviour.SetPath(transform.position,OnClicked);
+        }
+        else OnClicked.Invoke();
     }
 
     private void OnMouseUp()
