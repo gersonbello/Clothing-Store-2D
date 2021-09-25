@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1844192714238554759}
   - component: {fileID: 1844192714238554752}
   - component: {fileID: 1844192714238554758}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MoneyBag
   m_TagString: Money Bag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1844192714238554753
 Transform:
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844192714238554754}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -18.2, y: -15.3, z: 0}
   m_LocalScale: {x: 0.3269942, y: 0.3269942, z: 0.3269942}
   m_Children:

@@ -71,6 +71,10 @@ public class MoveableObjects : MonoBehaviour
     [SerializeField]
     protected SpriteRenderer foot2SkinRenderer;
 
+    // Automovement Configuration
+    [HideInInspector]
+    public List<Node> walkPath = new List<Node>();
+
     private void Start()
     {
         startScale = transform.localScale;

@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
 
     // Public reference to money controller
     public MoneyController moneyController { get; private set; }
+    public GridAndNodes worldGrid { get; private set; }
+    public PlayerBehaviour playerBehaviour { get; private set; }
 
     private void Awake()
     {
@@ -41,6 +43,11 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         moneyController = FindObjectOfType<MoneyController>();
+        worldGrid = FindObjectOfType<GridAndNodes>();
+        foreach(PlayerBehaviour pb in FindObjectsOfType<PlayerBehaviour>())
+        {
+            if (pb.CompareTag("Player")) playerBehaviour = pb;
+        }
 
         baseCursorTexture = Resources.Load<Texture2D>("Sprites/Cursors/BaseCursor");
     }
@@ -50,6 +57,14 @@ public class GameController : MonoBehaviour
         Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
 
         SortStaticSprites();
+    }
+
+    private void Update()
+    {
+        if (worldGrid != null && playerBehaviour != null)
+        {
+            worldGrid.FindPath(playerBehaviour.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), ref playerBehaviour.walkPath);
+        }
     }
 
     /// <summary>
