@@ -11,8 +11,9 @@ public class Skin : ScriptableObject
     [Header("Skin Status")]
     public bool bought;
 
-    [Header("Skin References")]
+    [Header("Skin Configuration")]
     public string skinName;
+    public int price;
     public Sprite Up;
     public Sprite Down;
     public Sprite Right;

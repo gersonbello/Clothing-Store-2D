@@ -297,8 +297,9 @@ public class MoveableObjects : MonoBehaviour
     /// </summary>
     /// <param name="skinRenderer">SpriteRenderer to be changed</param>
     /// <param name="newSkin">New sprite</param>
-    public void SetSkin(Skin newSkin, StoreSection section)
+    public void SetSkin(Skin newSkin, StoreSection section, Direction newDirection)
     {
+        lastMovementDirection = newDirection;
         switch (section)
         {
             case StoreSection.Hats: hatSkin = newSkin; break;

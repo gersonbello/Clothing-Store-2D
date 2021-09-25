@@ -48,6 +48,23 @@ public class SkinShop : MonoBehaviour
     [SerializeField]
     private List<Skin> feets;
 
+    private void Awake()
+    {
+        ResetSkins(hats);
+        ResetSkins(hands);
+        ResetSkins(bodys);
+        ResetSkins(feets);
+    }
+
+    /// <summary>
+    /// Reset the scriptables to default value, coud be used to save and load values too
+    /// </summary>
+    /// <param name="skinsList">List of skins to be reseted</param>
+    private void ResetSkins(List<Skin> skinsList)
+    {
+        foreach (Skin s in skinsList) s.bought = false;
+    }
+
     /// <summary>
     /// Rotate to next direction
     /// </summary>
@@ -119,6 +136,13 @@ public class SkinShop : MonoBehaviour
     /// </summary>
     public void BuySkin()
     {
-        characterRepresentation.SetSkin(selectedSkin, settedSection);
+        MoneyController moneyController = FindObjectOfType<MoneyController>();
+        if (selectedSkin.price <= moneyController.moneyAcount)
+        {
+            selectedSkin.bought = true;
+            moneyController.AddMoney(-selectedSkin.price);
+            PlayerBehaviour[] playerBehaviours = FindObjectsOfType<PlayerBehaviour>();
+            foreach(PlayerBehaviour pb in playerBehaviours) pb.SetSkin(selectedSkin, settedSection, settedDirection);
+        }
     }
 }

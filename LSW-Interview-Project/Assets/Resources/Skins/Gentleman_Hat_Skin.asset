@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb60073a6b8e6c4fa64b0f47c7ea732, type: 3}
   m_Name: Gentleman_Hat_Skin
   m_EditorClassIdentifier: 
-  bought: 0
+  bought: 1
   skinName: Gentleman Hat
+  price: 50
   Up: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}
   Down: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}
   Right: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}

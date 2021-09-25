@@ -5,10 +5,10 @@ using TMPro;
 
 public class MoneyController : MonoBehaviour
 {
+    // Player money amount
+    public int moneyAcount { get; private set; }
+
     [Header("Money UI Configuration")]
-    [Tooltip("Player money amount")]
-    [SerializeField]
-    private int moneyAcount;
     [Tooltip("Money UI text reference")]
     [SerializeField]
     private TextMeshProUGUI moneyText;
@@ -36,6 +36,7 @@ public class MoneyController : MonoBehaviour
     /// <param name="value">The value of the change</param>
     public void AddMoney(int value)
     {
+        StopAllCoroutines();
         StartCoroutine(ShowAddMoneyTextEffect(value));
         StartCoroutine(SetMoneyTo(moneyAcount + value));
     }
@@ -49,31 +50,15 @@ public class MoneyController : MonoBehaviour
     {
         float oldMoney = moneyAcount;
         moneyAcount = newValue;
-        // A timer to force the value to be changed to the end result in the same time in any case
-        float basicTimer = 0;
 
-        while (basicTimer < 1)
+        while (Mathf.Abs(oldMoney - newValue) > 1)
         {
-            basicTimer += Time.deltaTime;
-
-            // Get a dynamic speed to change the money value in the same time
-            float moneyChangeSpeed = ((newValue - oldMoney) / (1 / Time.deltaTime));
-
-            oldMoney += moneyChangeSpeed;
+            oldMoney = Mathf.Lerp(oldMoney, newValue, .1f);
             SetMoneyText((int)oldMoney);
 
             yield return null;
         }
         SetMoneyText(moneyAcount);
-    }
-
-    /// <summary>
-    /// Change the current UI money text
-    /// </summary>
-    /// <param name="moneyValue">The value to show in money text</param>
-    private void SetMoneyText(int moneyValue)
-    {
-        moneyText.text = $"${moneyValue}";
     }
 
     /// <summary>
@@ -98,4 +83,14 @@ public class MoneyController : MonoBehaviour
         moneyAddText.color = new Color(0, 0, 0, 0);
 
     }
+
+    /// <summary>
+    /// Change the current UI money text
+    /// </summary>
+    /// <param name="moneyValue">The value to show in money text</param>
+    private void SetMoneyText(int moneyValue)
+    {
+        moneyText.text = $"${moneyValue}";
+    }
+
 }
