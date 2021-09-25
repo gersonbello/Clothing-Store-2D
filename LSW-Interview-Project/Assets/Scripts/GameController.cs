@@ -54,16 +54,17 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
 
         SortStaticSprites();
     }
 
     private void Update()
     {
-        if (worldGrid != null && playerBehaviour != null)
+        if (Input.GetMouseButtonDown(1) && worldGrid != null && playerBehaviour != null)
         {
-            worldGrid.FindPath(playerBehaviour.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), ref playerBehaviour.walkPath);
+            Vector3 playerPos = playerBehaviour.transform.position;
+            playerBehaviour.SetPath();
         }
     }
 
@@ -88,8 +89,8 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBeforeRestore);
         if(interactedObject == null || !interactedObject.gameObject.activeInHierarchy)
-            Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-        else Cursor.SetCursor(mouseOverObjectTexture, overHotspot, CursorMode.ForceSoftware);
+            Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
+        else Cursor.SetCursor(mouseOverObjectTexture, overHotspot, CursorMode.Auto);
     }
 }
 

@@ -33,16 +33,16 @@ public class InteractableObject : MonoBehaviour
 
     private void OnMouseExit()
     {
-        Cursor.SetCursor(GameController.gcInstance.baseCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(GameController.gcInstance.baseCursorTexture, Vector2.zero, CursorMode.Auto);
     }
     private void OnMouseEnter()
     {
-        Cursor.SetCursor(cursorTextureOverObject, cursorOverHotspot, CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorTextureOverObject, cursorOverHotspot, CursorMode.Auto);
     }
 
     private void OnMouseDown()
     {
-        Cursor.SetCursor(cursorTextureMouseDownObject, cursorOnMouseDownHotspot, CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorTextureMouseDownObject, cursorOnMouseDownHotspot, CursorMode.Auto);
         GameController.gcInstance.StartCoroutine(GameController.gcInstance.RestoreCursorAfter(.1f, gameObject, cursorTextureOverObject, cursorOverHotspot));
         OnClicked.Invoke();
     }

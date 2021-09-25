@@ -74,6 +74,9 @@ public class MoveableObjects : MonoBehaviour
     // Automovement Configuration
     [HideInInspector]
     public List<Node> walkPath = new List<Node>();
+    private Queue<Node> walkPathQueue = new Queue<Node>();
+    // Reference to the next node to walk in and the last one walked
+    protected Node targetWalkNode, lastWalkNode;
 
     private void Start()
     {
@@ -88,17 +91,59 @@ public class MoveableObjects : MonoBehaviour
     {
         GetObjectDirection(direction);
         Vector2 objectPosition = transform.position;
-        rigidBody.MovePosition(objectPosition + direction * speed * Time.fixedDeltaTime);
+        rigidBody.MovePosition(objectPosition + direction.normalized * speed * Time.fixedDeltaTime);
     }
     /// <summary>
     ///  Used for execute the moviment to the desired position
     /// </summary>
     /// <param name="newPosition">Desired Position</param>
     /// <param name="newSpeed">Desired Velocity</param>
-    protected void Move(Vector2 newPosition, int? newSpeed)
+    protected void Move(Vector2 newPosition, float? newSpeed)
     {
-        GetObjectDirection((Vector2)transform.position - newPosition);
-        rigidBody.MovePosition(newPosition * (newSpeed.HasValue ? newSpeed.Value : speed) * Time.fixedDeltaTime);
+        Vector2 newDirection = (newPosition - (Vector2)transform.position).normalized;
+        Vector2 objectPosition = transform.position;
+        rigidBody.MovePosition(objectPosition + newDirection * (newSpeed.HasValue ? newSpeed.Value : speed) * Time.fixedDeltaTime);
+    }
+
+    /// <summary>
+    /// Set the path for automovement
+    /// </summary>
+    public void SetPath()
+    {
+        walkPath.Clear();
+        walkPathQueue.Clear();
+        GameController.gcInstance.worldGrid.FindPath(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), ref walkPath);
+        foreach (Node n in walkPath) walkPathQueue.Enqueue(n);
+        if (walkPath == null || walkPath.Count == 0) return;
+        targetWalkNode = walkPathQueue.Peek();
+        lastWalkNode = new Node(new Vector2(), transform.position, true);
+    }
+    /// <summary>
+    /// Automatically moves character
+    /// </summary>
+    protected void AutoMove()
+    {
+        float distanceFromTarget = Vector2.Distance(transform.position, targetWalkNode.nodedWorldPosition);
+        if (walkPathQueue.Count >= 0 && targetWalkNode != null)
+        {
+            if (distanceFromTarget > .1f)
+            {
+                GetObjectDirection((targetWalkNode.nodedWorldPosition - lastWalkNode.nodedWorldPosition));
+                Move(targetWalkNode.nodedWorldPosition, speed);
+                HandleAnimation(GetDirectionVector(lastMovementDirection));
+            }
+            else
+            {
+                lastWalkNode = targetWalkNode;
+                if (walkPathQueue.Count > 0)
+                    targetWalkNode = walkPathQueue.Dequeue();
+                else
+                {
+                    targetWalkNode = null;
+                    HandleAnimation(new Vector2());
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -109,13 +154,18 @@ public class MoveableObjects : MonoBehaviour
     {
         if (direction.magnitude != 0)
         {
+            if (direction.x != 0 && direction.y != 0)
+            {
+                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y)) direction.y = 0;
+                else direction.x = 0;
+            }
             if (direction.x != 0)
             {
-                lastMovementDirection = direction.x == 1 ? Direction.right : Direction.left;
+                lastMovementDirection = direction.x > 0 ? Direction.right : Direction.left;
             }
             else
             {
-                lastMovementDirection = direction.y == 1 ? Direction.up : Direction.down;
+                lastMovementDirection = direction.y > 0 ? Direction.up : Direction.down;
             }
         }
     }
@@ -137,6 +187,22 @@ public class MoveableObjects : MonoBehaviour
                 newDirection = direction.y == 1 ? Direction.up : Direction.down;
             }
         } else newDirection = Direction.empty;
+    }
+    /// <summary>
+    /// Gets the vector2 from direction
+    /// </summary>
+    /// <param name="direction">Moviment direction</param>
+    /// <param name="newDirection">Direction variable</param>
+    protected Vector2 GetDirectionVector(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.up: return Vector2.up; 
+            case Direction.down: return Vector2.down; 
+            case Direction.left: return Vector2.left; 
+            case Direction.right: return Vector2.right;
+            default: return new Vector2();
+        }
     }
     #endregion
 
@@ -178,6 +244,7 @@ public class MoveableObjects : MonoBehaviour
         }
         animator.SetFloat("Speed", direction.sqrMagnitude * speed * Time.deltaTime);
     }
+
 
     /// <summary>
     /// Change the skin based on equiped skin and direction

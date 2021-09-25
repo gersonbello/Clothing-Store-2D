@@ -75,6 +75,11 @@ public class GridAndNodes : MonoBehaviour
         return grid[x, y].nodedWorldPosition;
     }
 
+    /// <summary>
+    /// Get Nodes around the selected node
+    /// </summary>
+    /// <param name="node">Selected node</param>
+    /// <returns></returns>
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
@@ -90,7 +95,10 @@ public class GridAndNodes : MonoBehaviour
 
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
-                    grid[checkX, checkY].walkable = !Physics2D.OverlapBox(grid[checkX, checkY].nodedWorldPosition, new Vector2(nodeDiameter / 2, nodeDiameter / 2), 0, obstaclesLayers);
+                    if(Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1 && !diagonalParents)
+                        grid[checkX, checkY].walkable = !Physics2D.OverlapBox(grid[checkX, checkY].nodedWorldPosition, new Vector2(nodeDiameter, nodeDiameter) * 2, 0, obstaclesLayers);
+                    else
+                        grid[checkX, checkY].walkable = !Physics2D.OverlapBox(grid[checkX, checkY].nodedWorldPosition, new Vector2(nodeDiameter, nodeDiameter) / 2, 0, obstaclesLayers);
                     neighbours.Add(grid[checkX, checkY]);
                 }
             }
@@ -98,7 +106,12 @@ public class GridAndNodes : MonoBehaviour
         return neighbours;
     }
 
-
+    /// <summary>
+    /// Gets a path list with nodes that dont colide
+    /// </summary>
+    /// <param name="startPos">Start position</param>
+    /// <param name="target">Target Position</param>
+    /// <param name="path">Path list reference</param>
     public void FindPath(Vector3 startPos, Vector3 target, ref List<Node> path)
     {
         Node startNode = FromWorldPointToNode(startPos);
@@ -116,7 +129,7 @@ public class GridAndNodes : MonoBehaviour
                 if(openSet[i].gCost <= currentNode.gCost && openSet[i].hCost < currentNode.hCost)
                 {
                     currentNode = openSet[i];
-                    currentNode.walkable = !Physics2D.OverlapBox(currentNode.nodedWorldPosition, new Vector2(nodeDiameter/2, nodeDiameter/2), 0, obstaclesLayers);
+                    currentNode.walkable = !Physics2D.OverlapBox(currentNode.nodedWorldPosition, new Vector2(nodeDiameter, nodeDiameter) / 2, 0, obstaclesLayers);
                 }
             }
             openSet.Remove(currentNode);
@@ -161,6 +174,12 @@ public class GridAndNodes : MonoBehaviour
         path = newPath;
     }
 
+    /// <summary>
+    /// Get the distance in nodes from two nodes
+    /// </summary>
+    /// <param name="nodeA"></param>
+    /// <param name="nodeB"></param>
+    /// <returns></returns>
     int GetDistance(Node nodeA, Node nodeB)
     {
         int dstX = Mathf.Abs((int)(nodeA.nodeIndex.x - nodeB.nodeIndex.x));
@@ -171,7 +190,12 @@ public class GridAndNodes : MonoBehaviour
         return 14 * dstX + 10 * (dstY - dstX);
     }
 
+    #if UNITY_EDITOR
+    [Tooltip("Show/Hide the node gizmo")]
     public bool showGrid;
+    /// <summary>
+    /// Show gizmos on editor
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (!showGrid) return;
@@ -186,6 +210,7 @@ public class GridAndNodes : MonoBehaviour
             }
         }
     }
+    #endif
 
 
 }

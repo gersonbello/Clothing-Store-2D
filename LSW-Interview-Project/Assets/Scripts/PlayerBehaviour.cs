@@ -14,15 +14,14 @@ public class PlayerBehaviour : MoveableObjects
     {
         if (!getInput) return;
         Vector2 inputDirection = GetInputAxis();
-        Move(inputDirection);
-        HandleAnimation(inputDirection);
+        if (inputDirection.magnitude != 0)
+        {
+            targetWalkNode = null;
+            Move(inputDirection);
+        }
+        if(targetWalkNode != null) AutoMove();
+        else HandleAnimation(inputDirection);
     }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
     /// <summary>
     /// Return the input values based on axis
     /// </summary>
