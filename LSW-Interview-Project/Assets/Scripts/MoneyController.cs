@@ -69,14 +69,14 @@ public class MoneyController : MonoBehaviour
     {
         moneyAddText.transform.position = moneyAddTextStartPosition;
         string signText = moneyValue > 0 ? "+" : "-";
-        moneyAddText.text = $"{signText} ${moneyValue}";
+        moneyAddText.text = $"{signText} ${Mathf.Abs(moneyValue)}";
         moneyAddText.color = moneyValue > 0 ? moneyAddTextColorPositive : moneyAddTextColorNegative;
 
         while (moneyAddText.color.a > 0.01)
         {
             moneyAddText.transform.position += Vector3.up * 50 * Time.fixedDeltaTime;
             Color newColor = moneyAddText.color;
-            newColor.a = Mathf.Lerp(moneyAddText.color.a, 0, .1f);
+            newColor.a = Mathf.Lerp(moneyAddText.color.a, 0, 2.5f * Time.fixedDeltaTime);
             moneyAddText.color = newColor;
             yield return null;
         }

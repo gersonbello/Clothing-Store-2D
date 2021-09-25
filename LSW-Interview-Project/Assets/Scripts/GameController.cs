@@ -4,13 +4,51 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Cursor Options")]
+    [Tooltip("Base Cursor Texture")]
+    public Texture2D baseCursorTexture;
+
+
     //The base sorting value for all sorting objects
     public static int baseSortingValue { get { return 100000; } }
 
+    // Make a GameController singleton
+    private static GameController _gcInstance;
+    public static GameController gcInstance
+    {
+        get
+        {
+            if (_gcInstance == null)
+            {
+                _gcInstance = FindObjectOfType<GameController>();
+
+                if (_gcInstance == null) 
+                {
+                    GameController gc = Instantiate(new GameObject()).AddComponent<GameController>();
+                    _gcInstance = gc;
+                }
+            }
+            return _gcInstance;
+        }
+    }
+
+    // Public reference to money controller
+    public MoneyController moneyController { get; private set; }
+
+    private void Awake()
+    {
+        if (_gcInstance == null) _gcInstance = this; else if (_gcInstance != this) Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+
+        moneyController = FindObjectOfType<MoneyController>();
+
+        baseCursorTexture = Resources.Load<Texture2D>("Sprites/Cursors/BaseCursor");
+    }
+
     void Start()
     {
-        //// Locks at 60 fps, to avoid bugs with different performances, i used only for this project beside mobile ones
-        //Application.targetFrameRate = 60;
+        Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
         SortStaticSprites();
     }
 
@@ -23,6 +61,21 @@ public class GameController : MonoBehaviour
         sprites.AutoSortLayers(true);
     }
 
+    /// <summary>
+    /// Restore the cursor after object on click action
+    /// </summary>
+    /// <param name="timeBeforeRestore">Time to wait before changing the cursor</param>
+    /// <param name="interactedObject">Last object interacted</param>
+    /// <param name="mouseOverObjectTexture">Last object interacted cursor</param>
+    /// <param name="overHotspot">Last object interacted cursor hotspot</param>
+    /// <returns></returns>
+    public IEnumerator RestoreCursorAfter(float timeBeforeRestore, GameObject interactedObject, Texture2D mouseOverObjectTexture, Vector2 overHotspot)
+    {
+        yield return new WaitForSeconds(timeBeforeRestore);
+        if(interactedObject == null || !interactedObject.gameObject.activeInHierarchy)
+            Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        else Cursor.SetCursor(mouseOverObjectTexture, overHotspot, CursorMode.ForceSoftware);
+    }
 }
 
 // Extensions used to aply methods in the base of object type
