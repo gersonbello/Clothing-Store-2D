@@ -43,6 +43,19 @@ public class MoveableObjects : MonoBehaviour
     protected bool animate;
 
     [Space(5)]
+    [Header("Base Skins")]
+    [SerializeField]
+    protected Skin baseHatSkin;
+    [SerializeField]
+    protected Skin baseHeadSkin;
+    [SerializeField]
+    protected Skin baseBodySkin;
+    [SerializeField]
+    protected Skin baseHandsSkin;
+    [SerializeField]
+    protected Skin baseFeetSkin;
+
+    [Space(5)]
     [Header("Equipped Skins")]
     [SerializeField]
     protected Skin hatSkin;
@@ -80,12 +93,13 @@ public class MoveableObjects : MonoBehaviour
     protected Node targetWalkNode, lastWalkNode;
 
     // Events to execute after walking
-    [SerializeField]
     protected UnityEvent targetWalkEvents;
 
-    private void Start()
+    private void Awake()
     {
         startScale = transform.localScale;
+        SetSkin();
+        ChangeSkinLookingAtDirection(Direction.right);
     }
 
     #region Movement
@@ -261,22 +275,22 @@ public class MoveableObjects : MonoBehaviour
         switch (newDirection)
         {
             case Direction.up:
-                ChangeSkin(newDirection);
+                ChangeSkinLookingAtDirection(newDirection);
                 animator.SetFloat("InputX", 0);
                 animator.SetFloat("InputY", 1);
                 break;
             case Direction.down:
-                ChangeSkin(newDirection);
+                ChangeSkinLookingAtDirection(newDirection);
                 animator.SetFloat("InputX", 0);
                 animator.SetFloat("InputY", -1);
                 break;
             case Direction.left:
-                ChangeSkin(newDirection);
+                ChangeSkinLookingAtDirection(newDirection);
                 animator.SetFloat("InputX", -1);
                 animator.SetFloat("InputY", 0);
                 break;
             case Direction.right:
-                ChangeSkin(newDirection);
+                ChangeSkinLookingAtDirection(newDirection);
                 animator.SetFloat("InputX", 1);
                 animator.SetFloat("InputY", 0);
                 break;
@@ -294,8 +308,9 @@ public class MoveableObjects : MonoBehaviour
     /// </summary>
     /// <param name="skinRenderer">SpriteRenderer to be changed</param>
     /// <param name="newSkin">New sprite</param>
-    public void ChangeSkin(Direction newDirection)
+    public void ChangeSkinLookingAtDirection(Direction newDirection)
     {
+        lastMovementDirection = newDirection;
         switch (newDirection)
         {
             case Direction.up:
@@ -407,7 +422,7 @@ public class MoveableObjects : MonoBehaviour
     }
 
     /// <summary>
-    /// Changing the Sprite in this metod for easily update it later
+    /// Change to a new skin by section
     /// </summary>
     /// <param name="skinRenderer">SpriteRenderer to be changed</param>
     /// <param name="newSkin">New sprite</param>
@@ -417,8 +432,77 @@ public class MoveableObjects : MonoBehaviour
         switch (section)
         {
             case StoreSection.Hats: hatSkin = newSkin; break;
+            case StoreSection.Bodys: bodySkin = newSkin; break;
+            case StoreSection.Hands: handsSkin = newSkin; break;
+            case StoreSection.Feets: feetSkin = newSkin; break;
         }
         ChangeSkin();
+    }
+    /// <summary>
+    /// Changing the skin by section
+    /// </summary>
+    /// <param name="skinRenderer">SpriteRenderer to be changed</param>
+    /// <param name="newSkin">New sprite</param>
+    public void SetSkin(StoreSection section, Direction newDirection)
+    {
+        lastMovementDirection = newDirection;
+        switch (section)
+        {
+            case StoreSection.Hats: hatSkin = baseHatSkin; break;
+            case StoreSection.Bodys: bodySkin = baseBodySkin; break;
+            case StoreSection.Hands: handsSkin = baseHandsSkin; break;
+            case StoreSection.Feets: feetSkin = baseFeetSkin; break;
+        }
+        ChangeSkin();
+    }
+    /// <summary>
+    /// Changing all sections skin
+    /// </summary>
+    /// <param name="skinRenderer">SpriteRenderer to be changed</param>
+    /// <param name="newSkin">New sprite</param>
+    public void SetSkin()
+    {
+        hatSkin = hatSkin != null? hatSkin : baseHatSkin; 
+        bodySkin = bodySkin != null ? bodySkin : baseBodySkin; 
+        handsSkin = handsSkin != null ? handsSkin : baseHandsSkin; 
+        feetSkin = feetSkin != null ? feetSkin : baseFeetSkin;
+    }
+
+    /// <summary>
+    /// Compare skin with equipped skin
+    /// </summary>
+    /// <param name="compareSkin">Skin to compare</param>
+    /// <param name="section">Section to compare</param>
+    /// <returns></returns>
+    public bool CompareSkin(Skin compareSkin, StoreSection section)
+    {
+        bool sameSkin = false;
+        switch (section)
+        {
+            case StoreSection.Hats: sameSkin = hatSkin == compareSkin; break;
+            case StoreSection.Bodys: sameSkin = bodySkin == compareSkin; break;
+            case StoreSection.Hands: sameSkin = handsSkin == compareSkin; break;
+            case StoreSection.Feets: sameSkin = feetSkin == compareSkin; break;
+        }
+        return sameSkin;
+    }
+
+    /// <summary>
+    /// Return the skin in the section
+    /// </summary>
+    /// <param name="section">Section to compare</param>
+    /// <returns></returns>
+    public Skin GetSkin(StoreSection section)
+    {
+        switch (section)
+        {
+            case StoreSection.Hats: return hatSkin;
+            case StoreSection.Bodys: return bodySkin;
+            case StoreSection.Hands: return handsSkin;
+            case StoreSection.Feets: return feetSkin;
+        }
+
+        return null;
     }
     #endregion
 }

@@ -71,6 +71,9 @@ public class GameController : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !IsPointerOverObject(Input.mousePosition) && worldGrid != null && playerBehaviour != null)
         {
             playerBehaviour.SetPath();
+            Cursor.SetCursor(baseCursorOverButtonTexture, new Vector2(0, 10), CursorMode.Auto);
+            StopCoroutine("RestoreCursorAfter");
+            StartCoroutine(RestoreCursorAfter(.2f));
         }
         if(IsPointerOverObject(Input.mousePosition) || cursorOverButton)
         {
@@ -101,6 +104,19 @@ public class GameController : MonoBehaviour
         if(interactedObject == null || !interactedObject.gameObject.activeInHierarchy)
             Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
         else Cursor.SetCursor(mouseOverObjectTexture, overHotspot, CursorMode.Auto);
+    }
+    /// <summary>
+    /// Restore the cursor after object on click action
+    /// </summary>
+    /// <param name="timeBeforeRestore">Time to wait before changing the cursor</param>
+    /// <param name="interactedObject">Last object interacted</param>
+    /// <param name="mouseOverObjectTexture">Last object interacted cursor</param>
+    /// <param name="overHotspot">Last object interacted cursor hotspot</param>
+    /// <returns></returns>
+    public IEnumerator RestoreCursorAfter(float timeBeforeRestore)
+    {
+        yield return new WaitForSeconds(timeBeforeRestore);
+        Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     /// <summary>

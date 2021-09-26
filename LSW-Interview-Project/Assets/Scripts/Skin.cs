@@ -14,6 +14,7 @@ public class Skin : ScriptableObject
     [Header("Skin Configuration")]
     public string skinName;
     public int price;
+    public Sprite icon;
     public Sprite Up;
     public Sprite Down;
     public Sprite Right;

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb60073a6b8e6c4fa64b0f47c7ea732, type: 3}
+  m_Name: Gentleman_Hand_Skin
+  m_EditorClassIdentifier: 
+  bought: 0
+  skinName: Gentleman Hat
+  price: 50
+  icon: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Up: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Down: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Right: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Left: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}

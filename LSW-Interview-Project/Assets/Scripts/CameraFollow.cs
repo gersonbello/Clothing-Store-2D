@@ -10,6 +10,11 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Transform target;
 
+
+    [Tooltip("The offset from target")]
+    [SerializeField]
+    private Vector2 offset;
+
     [Tooltip("Time of the camera repositining by SmoothDamp")]
     [SerializeField]
     private float smoothTime;
@@ -25,6 +30,8 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("The min x and y position")]
     [SerializeField]
     private Vector2 minCameraPosition;
+
+    public float maxSpeed;
 
 
     private void Start()
@@ -50,22 +57,22 @@ public class CameraFollow : MonoBehaviour
             switch (targetMoveableObjects.lastMovementDirection)
             {
                 case Direction.up:
-                    desiredPosition = (Vector2)target.position + Vector2.up * lookAheadForce;
+                    desiredPosition = (Vector2)target.position + offset + Vector2.up * lookAheadForce;
                     break;
                 case Direction.down:
-                    desiredPosition = (Vector2)target.position + Vector2.down * lookAheadForce;
+                    desiredPosition = (Vector2)target.position + offset + Vector2.down * lookAheadForce;
                     break;
                 case Direction.left:
-                    desiredPosition = (Vector2)target.position + Vector2.left * lookAheadForce;
+                    desiredPosition = (Vector2)target.position + offset + Vector2.left * lookAheadForce;
                     break;
                 case Direction.right:
-                    desiredPosition = (Vector2)target.position + Vector2.right * lookAheadForce;
+                    desiredPosition = (Vector2)target.position + offset + Vector2.right * lookAheadForce;
                     break;
             }         
         else
             desiredPosition = target.position;
 
-        Vector3 newPosition = Vector2.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime, Mathf.Infinity, Time.deltaTime);
+        Vector3 newPosition = Vector2.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime, maxSpeed, Time.deltaTime);
         // Mantain the camera in the right z position
         newPosition.x = Mathf.Clamp(newPosition.x, minCameraPosition.x, maxCameraPosition.x);
         newPosition.y = Mathf.Clamp(newPosition.y, minCameraPosition.y, maxCameraPosition.y);

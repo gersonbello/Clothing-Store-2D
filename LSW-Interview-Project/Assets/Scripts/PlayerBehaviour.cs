@@ -8,10 +8,23 @@ public class PlayerBehaviour : MoveableObjects
     [Tooltip("Set if the player will respond to the input")]
     [SerializeField]
     private bool getInput = true;
+    [Tooltip("Set if it is a copy from player")]
+    [SerializeField]
+    private bool copy;
 
 
     void Update()
     {
+        if (copy)
+        {
+            PlayerBehaviour pb = GameController.gcInstance.playerBehaviour;
+            SetSkin(pb.hatSkin, StoreSection.Hats, lastMovementDirection);
+            SetSkin(pb.bodySkin, StoreSection.Bodys,lastMovementDirection);
+            SetSkin(pb.handsSkin, StoreSection.Hands,lastMovementDirection);
+            SetSkin(pb.feetSkin, StoreSection.Feets,lastMovementDirection);
+            return;
+        }
+
         if (!getInput) return;
         Vector2 inputDirection = GetInputAxis();
         if (inputDirection.magnitude != 0)

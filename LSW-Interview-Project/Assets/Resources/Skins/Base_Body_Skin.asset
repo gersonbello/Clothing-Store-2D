@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bought: 0
   skinName: Farm Suit
+  price: 0
+  icon: {fileID: -5667618076964737637, guid: 92f65b17d5638074c8968461149f3725, type: 3}
   Up: {fileID: -2946612315032841918, guid: 47ef6f32545735340a899277098337db, type: 3}
   Down: {fileID: 2329964412540424940, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
-  Right: {fileID: 2338711009602175021, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
-  Left: {fileID: 2338711009602175021, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}
+  Right: {fileID: -6876899385654808497, guid: 92f65b17d5638074c8968461149f3725, type: 3}
+  Left: {fileID: -6876899385654808497, guid: 92f65b17d5638074c8968461149f3725, type: 3}

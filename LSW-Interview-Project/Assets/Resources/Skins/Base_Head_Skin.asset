@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bought: 0
   skinName: Tomato Head
+  price: 0
+  icon: {fileID: -5667618076964737637, guid: 92f65b17d5638074c8968461149f3725, type: 3}
   Up: {fileID: 5020757429722616596, guid: 47ef6f32545735340a899277098337db, type: 3}
   Down: {fileID: 3422550722109570269, guid: 3f2a123937d842046b987a7b237fc9de, type: 3}
   Right: {fileID: 4011754869034626722, guid: 66fa1870cfa5e6b4ead81705dd3704ee, type: 3}

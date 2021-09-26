@@ -40,7 +40,7 @@ public class InteractableObject : MonoBehaviour
     {
         Cursor.SetCursor(cursorTextureMouseDownObject, cursorOnMouseDownHotspot, CursorMode.Auto);
         GameController.gcInstance.StartCoroutine(GameController.gcInstance.RestoreCursorAfter(.1f, gameObject, cursorTextureOverObject, cursorOverHotspot));
-        if (Vector2.Distance(GameController.gcInstance.playerBehaviour.transform.position, transform.position) > 1f)
+        if (Vector2.Distance(GameController.gcInstance.playerBehaviour.transform.position, transform.position) > 2f)
         {
             GameController.gcInstance.playerBehaviour.SetPath(transform.position,OnClicked);
         }

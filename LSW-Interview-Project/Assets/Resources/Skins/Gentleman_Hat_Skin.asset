@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb60073a6b8e6c4fa64b0f47c7ea732, type: 3}
   m_Name: Gentleman_Hat_Skin
   m_EditorClassIdentifier: 
-  bought: 1
+  bought: 0
   skinName: Gentleman Hat
   price: 50
-  Up: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}
-  Down: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}
-  Right: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}
-  Left: {fileID: 21300000, guid: 48a84ecafba3a9040a28fe943f14b0f7, type: 3}
+  icon: {fileID: -7916521850111720748, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Up: {fileID: 1378701794291391055, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Down: {fileID: 4266904221268023575, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Right: {fileID: 3061225335981187205, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
+  Left: {fileID: 3061225335981187205, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
