@@ -47,10 +47,13 @@ public class GameController : MonoBehaviour
     public MoneyController moneyController { get; private set; }
     public GridAndNodes worldGrid { get; private set; }
     public PlayerBehaviour playerBehaviour { get; private set; }
+    [HideInInspector]
+    public DialogueSystem dialogueSystem { get; set; }
 
     private void Awake()
     {
         if (_gcInstance == null) _gcInstance = this; else if (_gcInstance != this) Destroy(gameObject);
+
         DontDestroyOnLoad(gameObject);
 
         moneyController = FindObjectOfType<MoneyController>();

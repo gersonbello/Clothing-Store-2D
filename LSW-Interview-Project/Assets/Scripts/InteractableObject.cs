@@ -20,6 +20,9 @@ public class InteractableObject : MonoBehaviour
     [Tooltip("Events when selected")]
     [SerializeField]
     protected UnityEvent OnClicked;
+    [Tooltip("Offset to find path to object")]
+    [SerializeField]
+    protected Vector2 setPathOffset;
 
     private void Start()
     {
@@ -38,11 +41,12 @@ public class InteractableObject : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (GameController.gcInstance.IsPointerOverObject(Input.mousePosition)) return;
         Cursor.SetCursor(cursorTextureMouseDownObject, cursorOnMouseDownHotspot, CursorMode.Auto);
         GameController.gcInstance.StartCoroutine(GameController.gcInstance.RestoreCursorAfter(.1f, gameObject, cursorTextureOverObject, cursorOverHotspot));
         if (Vector2.Distance(GameController.gcInstance.playerBehaviour.transform.position, transform.position) > 2f)
         {
-            GameController.gcInstance.playerBehaviour.SetPath(transform.position,OnClicked);
+            GameController.gcInstance.playerBehaviour.SetPath((Vector2)transform.position + setPathOffset,OnClicked);
         }
         else OnClicked.Invoke();
     }

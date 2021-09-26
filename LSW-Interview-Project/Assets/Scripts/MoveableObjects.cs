@@ -178,6 +178,7 @@ public class MoveableObjects : MonoBehaviour
         {
             if(walkPathQueue.Count == 1 && targetWalkEvents != null && distanceFromTarget <= .1f)
             {
+                GetObjectDirection(targetWalkNode.nodedWorldPosition - (Vector2)transform.position);
                 targetWalkEvents.Invoke();
                 targetWalkNode = null;
                 HandleAnimation(new Vector2());
@@ -196,6 +197,7 @@ public class MoveableObjects : MonoBehaviour
                     targetWalkNode = walkPathQueue.Dequeue();
                 else
                 {
+                    GetObjectDirection(targetWalkNode.nodedWorldPosition - (Vector2)transform.position);
                     targetWalkNode = null;
                     HandleAnimation(new Vector2());
                 }
