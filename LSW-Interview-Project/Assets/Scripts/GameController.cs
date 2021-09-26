@@ -14,6 +14,11 @@ public class GameController : MonoBehaviour
     // Is generic button cursor active
     bool cursorOverButton;
 
+    [Header("Sorting Options")]
+    [Tooltip("Layers to auto sort")]
+    [SerializeField]
+    private LayerMask sortedLayers;
+
 
     //The base sorting value for all sorting objects
     public static int baseSortingValue { get { return 100000; } }
@@ -87,7 +92,7 @@ public class GameController : MonoBehaviour
     private void SortStaticSprites()
     {
         Renderer[] sprites = FindObjectsOfType<Renderer>();
-        sprites.AutoSortLayers(true);
+        sprites.AutoSortLayers(true, sortedLayers);
     }
 
     /// <summary>
@@ -168,11 +173,11 @@ public static class Extensions
     /// </summary>
     /// <param name="sRenderer">Sprites do sort</param>
     /// <param name="statics">Sort only static, or no static</param>
-    public static void AutoSortLayers(this Renderer[] sRenderer, bool statics)
+    public static void AutoSortLayers(this Renderer[] sRenderer, bool statics, LayerMask sortedLayers)
     {
         foreach (Renderer s in sRenderer)
         {
-            if (s.gameObject.isStatic == statics)
+            if (s.gameObject.isStatic == statics && (1 << s.gameObject.layer & sortedLayers) != 0)
             {
                 if (s.GetComponent<Collider2D>() != null)
                 {

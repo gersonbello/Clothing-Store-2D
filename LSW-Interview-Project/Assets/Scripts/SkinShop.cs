@@ -160,14 +160,15 @@ public class SkinShop : MonoBehaviour
     private void ShowSkinOnShop(Skin skinToShow)
     {
         selectedSkin = skinToShow;
-        if (characterRepresentation.CompareSkin(selectedSkin, settedSection))
-        {
-            buyButton.interactable = false;
-        }
-        else buyButton.interactable = true;
         skinNameText.text = selectedSkin.skinName;
         priceText.text = $"${selectedSkin.price}";
         buyButtonText.text = selectedSkin.bought ? "Equip" : "Buy";
+        if (characterRepresentation.CompareSkin(selectedSkin, settedSection))
+        {
+            buyButtonText.text = "Unequip";
+            //buyButton.interactable = false;
+        }
+        else buyButton.interactable = true;
 
         skinShowcaseRenderer.sprite = skinToShow.icon;
     }
@@ -177,6 +178,13 @@ public class SkinShop : MonoBehaviour
     /// </summary>
     public void BuySkin()
     {
+        if (characterRepresentation.CompareSkin(selectedSkin, settedSection))
+        {
+            PlayerBehaviour[] playerBehaviours = FindObjectsOfType<PlayerBehaviour>();
+            foreach (PlayerBehaviour pb in playerBehaviours) pb.SetSkin(settedSection, settedDirection);
+            ShowSkinOnShop(selectedSkin);
+            return;
+        }
         MoneyController moneyController = FindObjectOfType<MoneyController>();
         if (selectedSkin.price <= moneyController.moneyAcount || selectedSkin.bought)
         {
@@ -207,9 +215,23 @@ public class SkinShop : MonoBehaviour
         ShowSkinOnShop(selectedSkin);
     }
 
+    /// <summary>
+    /// Set the current section
+    /// </summary>
+    /// <param name="newSection"></param>
     public void SetSection(int newSection)
     {
         settedSection = (StoreSection)newSection;
         ShowSkinSection();
+    }
+
+    private void OnEnable()
+    {
+        GameController.gcInstance.playerBehaviour.TurnOffInput();
+    }
+
+    private void OnDisable()
+    {
+        GameController.gcInstance.playerBehaviour.TurnOnInput();
     }
 }

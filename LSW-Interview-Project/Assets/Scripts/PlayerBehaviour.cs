@@ -47,6 +47,21 @@ public class PlayerBehaviour : MoveableObjects
         return inputAxis;
     }
 
+    /// <summary>
+    /// Turn off the player input
+    /// </summary>
+    public void TurnOffInput()
+    {
+        getInput = false;
+    }
+    /// <summary>
+    /// Turn on the player input
+    /// </summary>
+    public void TurnOnInput()
+    {
+        getInput = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D coll)
     {
     }
