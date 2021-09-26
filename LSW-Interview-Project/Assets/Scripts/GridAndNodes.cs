@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// Generated based on A* Pathfinding from Sebastion Lague - https://www.youtube.com/watch?v=-L-WgKMFuhE
+// Generated based on "A* Pathfinding" from Sebastion Lague - https://www.youtube.com/watch?v=-L-WgKMFuhE
 public class GridAndNodes : MonoBehaviour
 {
+    #region Variables
     // The base world grid
     public Node[,] grid { get; private set; }
 
@@ -26,29 +27,39 @@ public class GridAndNodes : MonoBehaviour
     // Last Path
     List<Node> lastPath = new List<Node>();
 
-    /// <summary>
-    /// The grid node XY count
-    /// </summary>
+    // The grid node XY count
     private int gridSizeX, gridSizeY;
+    #endregion
 
     void Start()
+    {
+        CreateGrid();
+    }
+
+    #region Grid
+    /// <summary>
+    /// Creates the grid
+    /// </summary>
+    private void CreateGrid()
     {
         float nodeRadius = nodeDiameter / 2;
         gridSizeX = (int)(gridWorldScale.x / nodeDiameter);
         gridSizeY = (int)(gridWorldScale.y / nodeDiameter);
         grid = new Node[gridSizeX, gridSizeY];
         Vector2 bottomLeftGridPosition = (Vector2)transform.position + Vector2.left * gridWorldScale.x / 2 + Vector2.down * gridWorldScale.y / 2;
-        for(int x = 0; x < gridSizeX; x++)
+        for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector2 nodePosition = bottomLeftGridPosition + Vector2.right * (x * nodeDiameter + nodeRadius) + Vector2.up * (y * nodeDiameter + nodeRadius);
-                bool walkable = !Physics2D.OverlapBox(nodePosition, new Vector2(nodeRadius, nodeRadius) , 0, obstaclesLayers);
+                bool walkable = !Physics2D.OverlapBox(nodePosition, new Vector2(nodeRadius, nodeRadius), 0, obstaclesLayers);
                 grid[x, y] = new Node(new Vector2(x, y), nodePosition, walkable);
             }
         }
     }
+    #endregion
 
+    #region Pathfinding
     /// <summary>
     /// Return the equivalent node in the world position
     /// </summary>
@@ -222,8 +233,10 @@ public class GridAndNodes : MonoBehaviour
             return 14 * dstY + 10 * (dstX - dstY);
         return 14 * dstX + 10 * (dstY - dstX);
     }
+    #endregion
 
-    #if UNITY_EDITOR
+    #region Debug
+#if UNITY_EDITOR
     [Tooltip("Show/Hide the node gizmo")]
     public bool showGrid;
     /// <summary>
@@ -243,9 +256,8 @@ public class GridAndNodes : MonoBehaviour
             }
         }
     }
-    #endif
-
-
+#endif
+    #endregion
 }
 
 /// <summary>

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DynamicSortingLayer : MonoBehaviour
 {
+    #region Variables
     [Header("Sorting Configuration")]
     [Tooltip("All objects to be sorted as one")]
     [SerializeField]
@@ -12,10 +13,7 @@ public class DynamicSortingLayer : MonoBehaviour
     [Tooltip("Collider 2D for get botton collider world position")]
     [SerializeField]
     private Collider2D sortingCollider;
-
-    void Awake()
-    {
-    }
+    #endregion 
 
     void LateUpdate()
     {

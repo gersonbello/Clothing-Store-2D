@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 
+#region Dialogue Type Class
 /// <summary>
 /// Base Dialogue Class
 /// </summary>
@@ -25,9 +26,11 @@ public class Dialogue
         public Sprite dialogueCharacterHat;
     }
 }
+#endregion
 
 public class DialogueSystem : MonoBehaviour
 {
+    #region Variables
     [Header("Dialogue Box Configuration")]
     [Tooltip("Dialogue Text")]
     [SerializeField]
@@ -47,7 +50,9 @@ public class DialogueSystem : MonoBehaviour
     private int sentencesIndex;
     // the target sentence to show in the dialogue box
     private string targetSentence;
+    #endregion
 
+    #region Dialogue
     private void OnEnable()
     {
         nextSentenceIndicator.SetActive(false);
@@ -84,7 +89,36 @@ public class DialogueSystem : MonoBehaviour
             StartCoroutine(AnimateText());
         }
     }
+    /// <summary>
+    /// Called when the mouse click on this UI object
+    /// </summary>
+    public void OnClick()
+    {
+        // Try to affect the dialogue system, in cases where the player quickly advance the text before the coroutine ends 
+        // and the action ends with any errors, the action will be ignored an the system will be closed.
+        try
+        {
+            if (settedDialogue.dialogueSentences == null) return;
+            if (dialogueBoxText.text != settedDialogue.dialogueSentences[sentencesIndex].sentence)
+            {
+                StopCoroutine("AnimateText");
+                dialogueBoxText.text = settedDialogue.dialogueSentences[sentencesIndex].sentence;
+                nextSentenceIndicator.SetActive(true);
+            }
+            else GetNextDialogue();
+        }
+        catch
+        {
+            StopAllCoroutines();
+            Debug.LogWarning("Something went wrong with the dialogue");
+            if (settedDialogue != null) settedDialogue.dialogueEvents.Invoke();
+            settedDialogue = null;
+            gameObject.SetActive(false);
+        }
+    }
+    #endregion
 
+    #region Animation
     /// <summary>
     /// Animate the text letters
     /// </summary>
@@ -122,33 +156,5 @@ public class DialogueSystem : MonoBehaviour
         }
         gameObject.SetActive(false);
     }
-
-    /// <summary>
-    /// Called when the mouse click on this UI object
-    /// </summary>
-    public void OnClick()
-    {
-        // Try to affect the dialogue system, in cases where the player quickly advance the text before the coroutine ends 
-        // and the action ends with any errors, the action will be ignored an the system will be closed.
-        try
-        {
-            if (settedDialogue.dialogueSentences == null) return;
-            if (dialogueBoxText.text != settedDialogue.dialogueSentences[sentencesIndex].sentence)
-            {
-                StopCoroutine("AnimateText");
-                dialogueBoxText.text = settedDialogue.dialogueSentences[sentencesIndex].sentence;
-                nextSentenceIndicator.SetActive(true);
-            }
-            else GetNextDialogue();
-        }
-        catch 
-        {
-            StopAllCoroutines();
-            Debug.LogWarning("Something went wrong with the dialogue");
-            if (settedDialogue != null) settedDialogue.dialogueEvents.Invoke();
-            settedDialogue = null;
-            gameObject.SetActive(false);
-        }
-    }
-
+    #endregion
 }

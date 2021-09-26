@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class InteractableObject : MonoBehaviour
 {
+    #region Variables
     [Header("Mouse Interaction Configuration")]
     [Tooltip("Mouse cursor over this object")]
     public Texture2D cursorTextureOverObject;
@@ -23,6 +24,7 @@ public class InteractableObject : MonoBehaviour
     [Tooltip("Offset to find path to object")]
     [SerializeField]
     protected Vector2 setPathOffset;
+    #endregion
 
     private void Start()
     {
@@ -30,6 +32,7 @@ public class InteractableObject : MonoBehaviour
         if (cursorTextureMouseDownObject == null) cursorTextureMouseDownObject = Resources.Load<Texture2D>("Sprites/Cursors/HandClosedCursor");
     }
 
+    #region Mouse Interactions
     private void OnMouseExit()
     {
         Cursor.SetCursor(GameController.gcInstance.baseCursorTexture, Vector2.zero, CursorMode.Auto);
@@ -38,7 +41,6 @@ public class InteractableObject : MonoBehaviour
     {
         Cursor.SetCursor(cursorTextureOverObject, cursorOverHotspot, CursorMode.Auto);
     }
-
     private void OnMouseDown()
     {
         if (GameController.gcInstance.IsPointerOverObject(Input.mousePosition)) return;
@@ -50,10 +52,10 @@ public class InteractableObject : MonoBehaviour
         }
         else OnClicked.Invoke();
     }
-
     private void OnMouseUp()
     {
         GameController.gcInstance.StopCoroutine("RestoreCursorAfter");
         Cursor.SetCursor(cursorTextureOverObject, cursorOverHotspot, CursorMode.Auto);
     }
+    #endregion
 }

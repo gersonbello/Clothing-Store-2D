@@ -17,6 +17,7 @@ public enum Direction
 
 public class MoveableObjects : MonoBehaviour
 {
+    #region Variables
     // This script was made for other moving objects to inherit
 
     [Header("Moviment Configuration")]
@@ -94,6 +95,7 @@ public class MoveableObjects : MonoBehaviour
 
     // Events to execute after walking
     protected UnityEvent targetWalkEvents;
+    #endregion
 
     private void Awake()
     {

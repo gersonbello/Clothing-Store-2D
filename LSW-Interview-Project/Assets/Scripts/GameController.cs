@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    #region Variables
     [Header("Cursor Options")]
     [Tooltip("Base Cursor Texture")]
     public Texture2D baseCursorTexture;
@@ -49,7 +50,9 @@ public class GameController : MonoBehaviour
     public PlayerBehaviour playerBehaviour { get; private set; }
     [HideInInspector]
     public DialogueSystem dialogueSystem { get; set; }
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
         if (_gcInstance == null) _gcInstance = this; else if (_gcInstance != this) Destroy(gameObject);
@@ -66,14 +69,12 @@ public class GameController : MonoBehaviour
         baseCursorTexture = Resources.Load<Texture2D>("Sprites/Cursors/BaseCursor");
         baseCursorOverButtonTexture = Resources.Load<Texture2D>("Sprites/Cursors/HandPointingCursor");
     }
-
     void Start()
     {
         Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
 
         SortStaticSprites();
     }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(1) && !IsPointerOverObject(Input.mousePosition) && worldGrid != null && playerBehaviour != null)
@@ -88,7 +89,9 @@ public class GameController : MonoBehaviour
             VerifyButtonCursorInteraction(Input.mousePosition);
         }
     }
+    #endregion
 
+    #region Sorting
     /// <summary>
     /// Gets the botton y of static objects
     /// </summary>
@@ -97,7 +100,9 @@ public class GameController : MonoBehaviour
         Renderer[] sprites = FindObjectsOfType<Renderer>();
         sprites.AutoSortLayers(true, sortedLayers);
     }
+    #endregion
 
+    #region Cursor
     /// <summary>
     /// Restore the cursor after object on click action
     /// </summary>
@@ -165,12 +170,16 @@ public class GameController : MonoBehaviour
         cursorOverButton = false;
         Cursor.SetCursor(baseCursorTexture, Vector2.zero, CursorMode.Auto);
     }
-
+    #endregion
 }
 
-// Extensions used to aply methods in the base of object type
+/// <summary>
+/// xtensions used to aply methods in the base of object type
+/// </summary>
 public static class Extensions
 {
+    // A way to sort whitout using pivots and selec what's sorting and what isn't
+    #region Sorting
     /// <summary>
     /// Sort all SpriteRenderers based on y position
     /// </summary>
@@ -244,5 +253,6 @@ public static class Extensions
             s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom)/ .1f);
         }
     }
+    #endregion
 
 }

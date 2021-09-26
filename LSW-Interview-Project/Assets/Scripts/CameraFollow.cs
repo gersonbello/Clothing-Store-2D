@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    #region Variables
     [Header("Camera Movement Configuration")]
 
     [Tooltip("Target to follow")]
@@ -32,7 +33,7 @@ public class CameraFollow : MonoBehaviour
     private Vector2 minCameraPosition;
 
     public float maxSpeed;
-
+    #endregion
 
     private void Start()
     {

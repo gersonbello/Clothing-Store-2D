@@ -14,7 +14,7 @@ public enum StoreSection
 }
 public class SkinShop : MonoBehaviour
 {
-
+    #region Variables
     [Header("Skin Store Configuration")]
     [Tooltip("Selected Skin Index")]
     [SerializeField]
@@ -67,6 +67,7 @@ public class SkinShop : MonoBehaviour
     [Tooltip("Feet Skins")]
     [SerializeField]
     private List<Skin> feets;
+    #endregion
 
     private void Awake()
     {
@@ -76,7 +77,16 @@ public class SkinShop : MonoBehaviour
         ResetSkins(feets);
         ShowSkinSection();
     }
+    private void OnEnable()
+    {
+        GameController.gcInstance.playerBehaviour.TurnOffInput();
+    }
+    private void OnDisable()
+    {
+        GameController.gcInstance.playerBehaviour.TurnOnInput();
+    }
 
+    #region Skin Visualisation
     /// <summary>
     /// Reset the scriptables to default value, coud be used to save and load values too
     /// </summary>
@@ -84,40 +94,6 @@ public class SkinShop : MonoBehaviour
     private void ResetSkins(List<Skin> skinsList)
     {
         foreach (Skin s in skinsList) s.bought = false;
-    }
-
-    /// <summary>
-    /// Rotate to next direction
-    /// </summary>
-    public void NextDirection()
-    {
-        settedDirection = (Direction)Mathf.Repeat(settedDirection.GetHashCode() + 1, 4);
-        characterRepresentation.ChangeSkinLookingAtDirection(settedDirection);
-    }
-    /// <summary>
-    /// Rotate to previous direction
-    /// </summary>
-    public void PreviousDirection()
-    {
-        settedDirection = (Direction)Mathf.Repeat(settedDirection.GetHashCode() - 1, 4);
-        characterRepresentation.ChangeSkinLookingAtDirection(settedDirection);
-    }
-
-    /// <summary>
-    /// Show the next skin in the list
-    /// </summary>
-    public void ShowNext()
-    {
-        skinIndex++;
-        ShowSkinSection();
-    }
-    /// <summary>
-    /// Show the previous skin in the list
-    /// </summary>
-    public void ShowPrevious()
-    {
-        skinIndex--;
-        ShowSkinSection();
     }
 
     /// <summary>
@@ -174,6 +150,18 @@ public class SkinShop : MonoBehaviour
     }
 
     /// <summary>
+    /// Set the current section
+    /// </summary>
+    /// <param name="newSection"></param>
+    public void SetSection(int newSection)
+    {
+        settedSection = (StoreSection)newSection;
+        ShowSkinSection();
+    }
+    #endregion
+
+    #region Store Buttons
+    /// <summary>
     /// Buys and equip skin
     /// </summary>
     public void BuySkin()
@@ -216,22 +204,38 @@ public class SkinShop : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the current section
+    /// Rotate to next direction
     /// </summary>
-    /// <param name="newSection"></param>
-    public void SetSection(int newSection)
+    public void NextDirection()
     {
-        settedSection = (StoreSection)newSection;
+        settedDirection = (Direction)Mathf.Repeat(settedDirection.GetHashCode() + 1, 4);
+        characterRepresentation.ChangeSkinLookingAtDirection(settedDirection);
+    }
+
+    /// <summary>
+    /// Rotate to previous direction
+    /// </summary>
+    public void PreviousDirection()
+    {
+        settedDirection = (Direction)Mathf.Repeat(settedDirection.GetHashCode() - 1, 4);
+        characterRepresentation.ChangeSkinLookingAtDirection(settedDirection);
+    }
+
+    /// <summary>
+    /// Show the next skin in the list
+    /// </summary>
+    public void ShowNext()
+    {
+        skinIndex++;
         ShowSkinSection();
     }
-
-    private void OnEnable()
+    /// <summary>
+    /// Show the previous skin in the list
+    /// </summary>
+    public void ShowPrevious()
     {
-        GameController.gcInstance.playerBehaviour.TurnOffInput();
+        skinIndex--;
+        ShowSkinSection();
     }
-
-    private void OnDisable()
-    {
-        GameController.gcInstance.playerBehaviour.TurnOnInput();
-    }
+    #endregion
 }

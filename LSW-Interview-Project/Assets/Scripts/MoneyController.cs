@@ -5,6 +5,7 @@ using TMPro;
 
 public class MoneyController : MonoBehaviour
 {
+    #region Variables
     // Player money amount
     public int moneyAcount { get; private set; }
 
@@ -23,7 +24,9 @@ public class MoneyController : MonoBehaviour
     private Color moneyAddTextColorNegative;
     // Reference to inicial position
     Vector2 moneyAddTextStartPosition;
+    #endregion
 
+    #region Money
     private void Start()
     {
         moneyAddTextStartPosition = moneyAddText.transform.position;
@@ -41,6 +44,9 @@ public class MoneyController : MonoBehaviour
         StartCoroutine(SetMoneyTo(moneyAcount + value));
     }
 
+    #endregion
+
+    #region Money UI
     /// <summary>
     /// Change money value to the new over time
     /// </summary>
@@ -92,5 +98,5 @@ public class MoneyController : MonoBehaviour
     {
         moneyText.text = $"${moneyValue}";
     }
-
+    #endregion
 }

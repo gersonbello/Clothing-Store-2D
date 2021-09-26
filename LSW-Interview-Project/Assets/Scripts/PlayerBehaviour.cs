@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBehaviour : MoveableObjects
 {
+    #region Variables
     [Header("Player Status Configuration")]
     [Tooltip("Set if the player will respond to the input")]
     [SerializeField]
@@ -11,30 +12,43 @@ public class PlayerBehaviour : MoveableObjects
     [Tooltip("Set if it is a copy from player")]
     [SerializeField]
     private bool copy;
-
+    #endregion
 
     void Update()
+    {
+        HandlePlayerFunctions();
+    }
+
+    #region Player
+    /// <summary>
+    /// Handle player based in status like be able to use inputs
+    /// </summary>
+    private void HandlePlayerFunctions()
     {
         if (copy)
         {
             PlayerBehaviour pb = GameController.gcInstance.playerBehaviour;
             SetSkin(pb.hatSkin, StoreSection.Hats, lastMovementDirection);
-            SetSkin(pb.bodySkin, StoreSection.Bodys,lastMovementDirection);
-            SetSkin(pb.handsSkin, StoreSection.Hands,lastMovementDirection);
-            SetSkin(pb.feetSkin, StoreSection.Feets,lastMovementDirection);
+            SetSkin(pb.bodySkin, StoreSection.Bodys, lastMovementDirection);
+            SetSkin(pb.handsSkin, StoreSection.Hands, lastMovementDirection);
+            SetSkin(pb.feetSkin, StoreSection.Feets, lastMovementDirection);
             return;
         }
 
         if (!getInput) return;
+
         Vector2 inputDirection = GetInputAxis();
         if (inputDirection.magnitude != 0)
         {
             targetWalkNode = null;
             Move(inputDirection);
         }
-        if(targetWalkNode != null) AutoMove();
+        if (targetWalkNode != null) AutoMove();
         else HandleAnimation(inputDirection);
     }
+    #endregion
+
+    #region Input
     /// <summary>
     /// Return the input values based on axis
     /// </summary>
@@ -61,7 +75,7 @@ public class PlayerBehaviour : MoveableObjects
     {
         getInput = true;
     }
-
+    #endregion
     private void OnTriggerEnter2D(Collider2D coll)
     {
     }
