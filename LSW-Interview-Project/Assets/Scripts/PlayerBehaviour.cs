@@ -78,5 +78,12 @@ public class PlayerBehaviour : MoveableObjects
     #endregion
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        if (coll.CompareTag("Trigger") || coll.CompareTag("AllTrigger")) coll.GetComponent<SimpleTriggerEventDeliver>().InvokeEvents();
+    }
+
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.CompareTag("Trigger") || coll.CompareTag("AllTrigger")) coll.GetComponent<SimpleTriggerEventDeliver>().InvokeExitEvents();
+
     }
 }

@@ -5434,6 +5434,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  maxAutoMoveDistance: {x: 10, y: 10}
   autoMove: 1
 --- !u!1 &648698523339291096
 GameObject:
@@ -5597,7 +5598,7 @@ MonoBehaviour:
   - {fileID: 648698522986589419}
   - {fileID: 648698522592625526}
   - {fileID: 648698522785452396}
-  sortingCollider: {fileID: 648698523152047533}
+  sortingOffset: 1.4
 --- !u!114 &648698523383868549
 MonoBehaviour:
   m_ObjectHideFlags: 0

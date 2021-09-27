@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour
     private void SortStaticSprites()
     {
         Renderer[] sprites = FindObjectsOfType<Renderer>();
-        sprites.AutoSortLayers(true, sortedLayers);
+        sprites.AutoSortLayers(sortedLayers);
     }
     #endregion
 
@@ -185,19 +185,13 @@ public static class Extensions
     /// </summary>
     /// <param name="sRenderer">Sprites do sort</param>
     /// <param name="statics">Sort only static, or no static</param>
-    public static void AutoSortLayers(this Renderer[] sRenderer, bool statics, LayerMask sortedLayers)
+    public static void AutoSortLayers(this Renderer[] sRenderer, LayerMask sortedLayers)
     {
         foreach (Renderer s in sRenderer)
         {
-            if (s.gameObject.isStatic == statics && (1 << s.gameObject.layer & sortedLayers) != 0)
+            if ((1 << s.gameObject.layer & sortedLayers) != 0)
             {
-                if (s.GetComponent<Collider2D>() != null)
-                {
-                    Bounds objectBounds = s.GetComponent<Collider2D>().bounds;
-                    float objectBottom = objectBounds.center.y - (objectBounds.size.y /2);
-                    s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom) /.1f);
-                }
-                else s.sortingOrder = (int)((GameController.baseSortingValue - s.transform.position.y) / .1f);
+                s.sortingOrder = (int)((GameController.baseSortingValue - s.bounds.min.y) / .1f);
             }
         }
     }
@@ -207,50 +201,11 @@ public static class Extensions
     /// </summary>
     /// <param name="sRenderer">Sprites do sort</param>
     /// <param name="statics">Sort only static, or no static</param>
-    public static void AutoSortLayers(this List<Renderer> sRenderer, bool statics)
+    public static void AutoSortLayers(this List<Renderer> sRenderer, float sortOffset)
     {
         foreach (Renderer s in sRenderer)
         {
-            if (s.gameObject.isStatic == statics)
-            {
-                if (s.GetComponent<Collider2D>() != null)
-                {
-                    Bounds objectBounds = s.GetComponent<Collider2D>().bounds;
-                    float objectBottom = objectBounds.center.y - (objectBounds.size.y / 2);
-                    s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom) / .1f);
-                }
-                else s.sortingOrder = (int)((GameController.baseSortingValue - s.transform.position.y) / .1f);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Sort all SpriteRenderers based on y position
-    /// </summary>
-    /// <param name="sRenderer">Sprites do sort</param>
-    /// <param name="statics">Sort bse on collider</param>
-    public static void AutoSortLayers(this List<Renderer> sRenderer, Collider2D baseCollider)
-    {
-        foreach (Renderer s in sRenderer)
-        {
-            Bounds objectBounds = baseCollider.GetComponent<Collider2D>().bounds;
-            float objectBottom = objectBounds.center.y - (objectBounds.size.y / 2);
-            s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom) / .1f);
-        }
-    }
-
-    /// <summary>
-    /// Sort all SpriteRenderers based on y position
-    /// </summary>
-    /// <param name="sRenderer">Sprites do sort</param>
-    /// <param name="statics">Sort bse on collider</param>
-    public static void AutoSortLayers(this Renderer[] sRenderer, Collider2D baseCollider)
-    {
-        foreach (Renderer s in sRenderer)
-        {
-            Bounds objectBounds = baseCollider.GetComponent<Collider2D>().bounds;
-            float objectBottom = objectBounds.center.y - (objectBounds.size.y / 2);
-            s.sortingOrder = (int)((GameController.baseSortingValue - objectBottom)/ .1f);
+            s.sortingOrder = (int)((GameController.baseSortingValue - sortOffset) / .1f);
         }
     }
     #endregion

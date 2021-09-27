@@ -34,6 +34,9 @@ public class SkinShop : MonoBehaviour
     [Tooltip("Character representation reference")]
     [SerializeField]
     private MoveableObjects characterRepresentation;
+    [Tooltip("Sell Button canvas group reference")]
+    [SerializeField]
+    private CanvasGroup sellButtonCanvasGroup;
 
     [Header("Text References")]
     [Tooltip("Buy Button Text reference")]
@@ -139,11 +142,11 @@ public class SkinShop : MonoBehaviour
         skinNameText.text = selectedSkin.skinName;
         priceText.text = $"${selectedSkin.price}";
         buyButtonText.text = selectedSkin.bought ? "Equip" : "Buy";
-        if (characterRepresentation.CompareSkin(selectedSkin, settedSection))
-        {
-            buyButtonText.text = "Unequip";
-            //buyButton.interactable = false;
-        }
+
+        if (selectedSkin.bought) sellButtonCanvasGroup.alpha = 1;
+        else sellButtonCanvasGroup.alpha = 0;
+
+        if (characterRepresentation.CompareSkin(selectedSkin, settedSection)) buyButtonText.text = "Unequip";
         else buyButton.interactable = true;
 
         skinShowcaseRenderer.sprite = skinToShow.icon;

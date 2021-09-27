@@ -10,13 +10,25 @@ public class DynamicSortingLayer : MonoBehaviour
     [SerializeField]
     private List<Renderer> sortingObjects;
 
-    [Tooltip("Collider 2D for get botton collider world position")]
+    [Tooltip("Sorting offset position")]
     [SerializeField]
-    private Collider2D sortingCollider;
+    private float sortingOffset;
+
+
+    [Tooltip("Sort just once, still not static")]
+    [SerializeField]
+    private bool staticSort;
     #endregion 
+
+    private void Start()
+    {
+        if(staticSort)
+            sortingObjects.AutoSortLayers(transform.position.y - sortingOffset);
+    }
 
     void LateUpdate()
     {
-        sortingObjects.AutoSortLayers(sortingCollider);
+        if(!staticSort)
+            sortingObjects.AutoSortLayers(transform.position.y - sortingOffset);
     }
 }
