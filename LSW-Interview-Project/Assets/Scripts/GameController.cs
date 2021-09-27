@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private LayerMask sortedLayers;
 
-
     //The base sorting value for all sorting objects
     public static int baseSortingValue { get { return 100000; } }
 
@@ -77,6 +76,7 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M)) moneyController.AddMoney(500);
         if (Input.GetMouseButtonDown(1) && !IsPointerOverObject(Input.mousePosition) && worldGrid != null && playerBehaviour != null)
         {
             playerBehaviour.SetPath();

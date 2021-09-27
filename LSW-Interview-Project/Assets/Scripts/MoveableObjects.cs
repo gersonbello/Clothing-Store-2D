@@ -24,6 +24,7 @@ public class MoveableObjects : MonoBehaviour
     [Tooltip("Speed of the moviment")]
     [SerializeField]
     protected float speed;
+
     // Used to get last direction from object
     public Direction lastMovementDirection { get; protected set; } = Direction.down;
 
@@ -90,6 +91,7 @@ public class MoveableObjects : MonoBehaviour
     [HideInInspector]
     public List<Node> walkPath = new List<Node>();
     private Queue<Node> walkPathQueue = new Queue<Node>();
+    protected GameObject seekedGameObject;
     // Reference to the next node to walk in and the last one walked
     protected Node targetWalkNode, lastWalkNode;
 
@@ -112,7 +114,13 @@ public class MoveableObjects : MonoBehaviour
     {
         GetObjectDirection(direction);
         Vector2 objectPosition = transform.position;
-        rigidBody.MovePosition(objectPosition + direction.normalized * speed * Time.fixedDeltaTime);
+        Vector2 newPosition = objectPosition + direction.normalized * speed * Time.fixedDeltaTime;
+        if (!ComparePositionToWorldBounds(newPosition))
+        {
+            targetWalkNode = null;
+            return;
+        }
+        rigidBody.MovePosition(newPosition);
     }
     /// <summary>
     ///  Used for execute the moviment to the desired position
@@ -121,16 +129,40 @@ public class MoveableObjects : MonoBehaviour
     /// <param name="newSpeed">Desired Velocity</param>
     protected void Move(Vector2 newPosition, float? newSpeed)
     {
+        if (!ComparePositionToWorldBounds(newPosition))
+        {
+            targetWalkNode = null;
+            return;
+        }
         Vector2 newDirection = (newPosition - (Vector2)transform.position).normalized;
         Vector2 objectPosition = transform.position;
         rigidBody.MovePosition(objectPosition + newDirection * (newSpeed.HasValue ? newSpeed.Value : speed) * Time.fixedDeltaTime);
     }
 
     /// <summary>
+    /// Return if the position is inside camera bounds
+    /// </summary>
+    /// <param name="positionToCompare"></param>
+    /// <returns></returns>
+    protected bool ComparePositionToWorldBounds(Vector2 positionToCompare)
+    {
+        Vector2 minXY = GameController.gcInstance.worldGrid.minXY;
+        Vector2 maxXY = GameController.gcInstance.worldGrid.maxXY;
+        if (positionToCompare.x < minXY.x ||
+            positionToCompare.x > maxXY.x ||
+            positionToCompare.y < minXY.y ||
+            positionToCompare.y > maxXY.y)
+            return false;
+        return true;
+    }
+
+    #region SetPath to Move
+    /// <summary>
     /// Set the path for automovement
     /// </summary>
     public void SetPath()
     {
+        seekedGameObject = null;
         targetWalkEvents = null;
         walkPath.Clear();
         walkPathQueue.Clear();
@@ -146,6 +178,7 @@ public class MoveableObjects : MonoBehaviour
     /// <param name="newEvents"></param>
     public void SetPath(UnityEvent newEvents)
     {
+        seekedGameObject = null;
         targetWalkEvents = newEvents;
         walkPath.Clear();
         walkPathQueue.Clear();
@@ -159,8 +192,9 @@ public class MoveableObjects : MonoBehaviour
     /// Set the path for automovement with events at the end
     /// </summary>
     /// <param name="newEvents"></param>
-    public void SetPath(Vector2 targetPos,UnityEvent newEvents)
+    public void SetPath(GameObject _seekedGameObject, Vector2 targetPos,UnityEvent newEvents)
     {
+        seekedGameObject = _seekedGameObject;
         targetWalkEvents = newEvents;
         walkPath.Clear();
         walkPathQueue.Clear();
@@ -171,6 +205,24 @@ public class MoveableObjects : MonoBehaviour
         lastWalkNode = new Node(new Vector2(), transform.position, true);
     }
     /// <summary>
+    /// Set the path for automovement with events at the end
+    /// </summary>
+    /// <param name="newEvents"></param>
+    public void SetPath(Vector2 targetPos, UnityEvent newEvents)
+    {
+        seekedGameObject = null;
+        targetWalkEvents = newEvents;
+        walkPath.Clear();
+        walkPathQueue.Clear();
+        GameController.gcInstance.worldGrid.FindPath(transform.position, targetPos, ref walkPath);
+        foreach (Node n in walkPath) walkPathQueue.Enqueue(n);
+        if (walkPath == null || walkPath.Count == 0) return;
+        targetWalkNode = walkPathQueue.Peek();
+        lastWalkNode = new Node(new Vector2(), transform.position, true);
+    }
+    #endregion
+
+    /// <summary>
     /// Automatically moves character
     /// </summary>
     protected void AutoMove()
@@ -178,17 +230,38 @@ public class MoveableObjects : MonoBehaviour
         float distanceFromTarget = Vector2.Distance(transform.position, targetWalkNode.nodedWorldPosition);
         if (walkPathQueue.Count >= 0 && targetWalkNode != null)
         {
+            if (!ComparePositionToWorldBounds(targetWalkNode.nodedWorldPosition))
+            {
+                GetObjectDirection(targetWalkNode.nodedWorldPosition - (Vector2)transform.position);
+                targetWalkNode = null;
+                HandleAnimation(new Vector2());
+            }
             if(walkPathQueue.Count == 1 && targetWalkEvents != null && distanceFromTarget <= .1f)
             {
+                if (seekedGameObject != null && Vector2.Distance(transform.position, seekedGameObject.transform.position) > 2)
+                {
+                    SetPath(seekedGameObject, seekedGameObject.transform.position, targetWalkEvents);
+                    return;
+                }
+
                 GetObjectDirection(targetWalkNode.nodedWorldPosition - (Vector2)transform.position);
                 targetWalkEvents.Invoke();
                 targetWalkNode = null;
                 HandleAnimation(new Vector2());
                 return;
             }
-            if (distanceFromTarget > .1f)
+            if (distanceFromTarget > .1f && lastWalkNode != null)
             {
-                GetObjectDirection((targetWalkNode.nodedWorldPosition - lastWalkNode.nodedWorldPosition));
+                Vector2 newDirection = new Vector2();
+                try
+                {
+                    newDirection = targetWalkNode.nodedWorldPosition - lastWalkNode.nodedWorldPosition;
+                } catch // Bug isolation for future analysis
+                {
+                    ResetMovement();
+                    return;
+                }
+                GetObjectDirection(newDirection);
                 Move(targetWalkNode.nodedWorldPosition, speed);
                 HandleAnimation(GetDirectionVector(lastMovementDirection));
             }
@@ -205,6 +278,16 @@ public class MoveableObjects : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Reset all movement
+    /// </summary>
+    public void ResetMovement()
+    {
+        lastWalkNode = null;
+        targetWalkNode = null;
+        HandleAnimation(new Vector2());
     }
 
     /// <summary>

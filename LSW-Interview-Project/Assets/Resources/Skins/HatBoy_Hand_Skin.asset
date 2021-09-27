@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb60073a6b8e6c4fa64b0f47c7ea732, type: 3}
+  m_Name: HatBoy_Hand_Skin
+  m_EditorClassIdentifier: 
+  bought: 1
+  skinName: Blue Gloves
+  price: 25
+  icon: {fileID: 1245731385260756054, guid: 7f455c5d009b3f54485d9ee5a3e901d8, type: 3}
+  Up: {fileID: 1245731385260756054, guid: 7f455c5d009b3f54485d9ee5a3e901d8, type: 3}
+  Down: {fileID: 1245731385260756054, guid: 7f455c5d009b3f54485d9ee5a3e901d8, type: 3}
+  Right: {fileID: 1245731385260756054, guid: 7f455c5d009b3f54485d9ee5a3e901d8, type: 3}
+  Left: {fileID: 1245731385260756054, guid: 7f455c5d009b3f54485d9ee5a3e901d8, type: 3}

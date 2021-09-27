@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gentleman_Hand_Skin
   m_EditorClassIdentifier: 
   bought: 0
-  skinName: Gentleman Hat
+  skinName: Gentleman Gloves
   price: 50
   icon: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}
   Up: {fileID: -9039881936132109000, guid: d2f0313e5252bbe46b329305c5b7496f, type: 3}

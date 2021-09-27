@@ -58,6 +58,7 @@ public class DialogueSystem : MonoBehaviour
         nextSentenceIndicator.SetActive(false);
         sentencesIndex = 0;
         GameController.gcInstance.dialogueSystem = this;
+        if (GameController.gcInstance.playerBehaviour != null) GameController.gcInstance.playerBehaviour.ResetMovement();
         GetComponent<CanvasGroup>().alpha = 1;
         StopAllCoroutines();
         if (settedDialogue == null) GetNextDialogue();
@@ -86,9 +87,11 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            StartCoroutine(AnimateText());
+            if(settedDialogue != null)
+                StartCoroutine(AnimateText());
         }
     }
+
     /// <summary>
     /// Called when the mouse click on this UI object
     /// </summary>
@@ -132,14 +135,22 @@ public class DialogueSystem : MonoBehaviour
             charRepresentationHatRenderer.sprite = settedDialogue.dialogueSentences[sentencesIndex].dialogueCharacterHat;
         dialogueBoxText.text = "";
         int charIndex = 0;
-        while (settedDialogue.dialogueSentences != null && charArray != null && dialogueBoxText.text.Length < charArray.Length)
+
+        while (settedDialogue != null &&
+            targetSentence != null &&
+            dialogueBoxText.text != targetSentence &&
+            charIndex < charArray.Length)
         {
-            if (charIndex >= targetSentence.Length) break;
+            if (charIndex >= targetSentence.Length ||
+                charIndex > charArray.Length) break;
             dialogueBoxText.text += charArray[charIndex];
             charIndex++;
             yield return new WaitForSeconds(1.25f * Time.deltaTime);
         }
+
+        dialogueBoxText.text = targetSentence;
         nextSentenceIndicator.SetActive(true);
+
     }
 
     /// <summary>
@@ -148,6 +159,7 @@ public class DialogueSystem : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeDisable()
     {
+        StopCoroutine(AnimateText());
         CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
         while (canvasGroup.alpha > 0.001f)
         {

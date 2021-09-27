@@ -104,25 +104,25 @@ public class SkinShop : MonoBehaviour
         switch (settedSection)
         {
             case StoreSection.Hats:
-                sectionText.text = "hats";
+                sectionText.text = "Hats";
                 skinIndex = skinIndex >= hats.Count ? 0 : skinIndex;
                 skinIndex = skinIndex < 0 ? hats.Count - 1 : skinIndex;
                 ShowSkinOnShop(hats[skinIndex]);
                 break;
             case StoreSection.Bodys:
-                sectionText.text = "bodys";
+                sectionText.text = "Shirts";
                 skinIndex = skinIndex >= bodys.Count ? 0 : skinIndex;
                 skinIndex = skinIndex < 0 ? bodys.Count - 1 : skinIndex;
                 ShowSkinOnShop(bodys[skinIndex]);
                 break;
             case StoreSection.Hands:
-                sectionText.text = "hands";
+                sectionText.text = "Gloves";
                 skinIndex = skinIndex >= hands.Count ? 0 : skinIndex;
                 skinIndex = skinIndex < 0 ? hands.Count - 1 : skinIndex;
                 ShowSkinOnShop(hands[skinIndex]);
                 break;
             case StoreSection.Feets:
-                sectionText.text = "feets";
+                sectionText.text = "Shoes";
                 skinIndex = skinIndex >= feets.Count ? 0 : skinIndex;
                 skinIndex = skinIndex < 0 ? feets.Count - 1 : skinIndex;
                 ShowSkinOnShop(feets[skinIndex]);
@@ -177,9 +177,10 @@ public class SkinShop : MonoBehaviour
         if (selectedSkin.price <= moneyController.moneyAcount || selectedSkin.bought)
         {
             if(!selectedSkin.bought)moneyController.AddMoney(-selectedSkin.price);
-            selectedSkin.bought = true;
             PlayerBehaviour[] playerBehaviours = FindObjectsOfType<PlayerBehaviour>();
-            foreach(PlayerBehaviour pb in playerBehaviours) pb.SetSkin(selectedSkin, settedSection, settedDirection);
+            if(selectedSkin.bought)
+                foreach(PlayerBehaviour pb in playerBehaviours) pb.SetSkin(selectedSkin, settedSection, settedDirection);
+            selectedSkin.bought = true;
         }
         ShowSkinOnShop(selectedSkin);
     }

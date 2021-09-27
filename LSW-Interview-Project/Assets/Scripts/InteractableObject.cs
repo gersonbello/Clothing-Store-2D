@@ -48,7 +48,7 @@ public class InteractableObject : MonoBehaviour
         GameController.gcInstance.StartCoroutine(GameController.gcInstance.RestoreCursorAfter(.1f, gameObject, cursorTextureOverObject, cursorOverHotspot));
         if (Vector2.Distance(GameController.gcInstance.playerBehaviour.transform.position, transform.position) > 2f)
         {
-            GameController.gcInstance.playerBehaviour.SetPath((Vector2)transform.position + setPathOffset,OnClicked);
+            GameController.gcInstance.playerBehaviour.SetPath(gameObject, (Vector2)transform.position + setPathOffset,OnClicked);
         }
         else OnClicked.Invoke();
     }

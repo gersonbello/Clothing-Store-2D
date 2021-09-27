@@ -24,6 +24,12 @@ public class GridAndNodes : MonoBehaviour
     [SerializeField]
     private bool diagonalParents = true;
 
+    [Header("WorldSize")]
+    [Tooltip("Max xy move positions")]
+    public Vector2 maxXY;
+    [Tooltip("Min xy move positions")]
+    public Vector2 minXY;
+
     // Last Path
     List<Node> lastPath = new List<Node>();
 
@@ -164,9 +170,10 @@ public class GridAndNodes : MonoBehaviour
             }
             if (!targetNode.walkable) return;
         }
-
+        float timeBeforeGetPath = Time.time;
         while (openSet.Count > 0)
         {
+            if ((Time.time - timeBeforeGetPath) > .1f) break; // Quick fix for unoptimized stutering
             Node currentNode = openSet[0];
             for(int i = 1; i < openSet.Count; i++)
             {

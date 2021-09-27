@@ -26,11 +26,9 @@ public class CameraFollow : MonoBehaviour
     private float lookAheadForce;
 
     [Tooltip("The max x and y position")]
-    [SerializeField]
-    private Vector2 maxCameraPosition;
+    public Vector2 maxCameraPosition;
     [Tooltip("The min x and y position")]
-    [SerializeField]
-    private Vector2 minCameraPosition;
+    public Vector2 minCameraPosition;
 
     public float maxSpeed;
     #endregion
