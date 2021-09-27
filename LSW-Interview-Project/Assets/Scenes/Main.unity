@@ -1721,7 +1721,7 @@ MonoBehaviour:
   - {fileID: 1490410298}
   - {fileID: 188110740}
   - {fileID: 1298409173}
-  sortingOffset: 1.3
+  sortingOffset: 1.35
   staticSort: 0
 --- !u!114 &142998782
 MonoBehaviour:
@@ -3029,7 +3029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 648698523383868555, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: sortingOffset
-      value: 1.3
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 648698523847329510, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: m_Enabled
@@ -8183,7 +8183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 648698523383868555, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: sortingOffset
-      value: 1.3
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 648698524317199197, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: m_Sprite
@@ -14007,7 +14007,7 @@ MonoBehaviour:
   - {fileID: 2124978619}
   - {fileID: 263473259}
   - {fileID: 1466916197}
-  sortingOffset: 1.3
+  sortingOffset: 1.35
   staticSort: 0
 --- !u!95 &1125529468
 Animator:
@@ -26509,7 +26509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 648698523383868555, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: sortingOffset
-      value: 1.3
+      value: 1.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
@@ -34534,7 +34534,7 @@ MonoBehaviour:
   - {fileID: 1631484666}
   - {fileID: 159087474}
   - {fileID: 1783863404}
-  sortingOffset: 1.3
+  sortingOffset: 1.35
   staticSort: 0
 --- !u!4 &1935349366
 Transform:
@@ -34959,7 +34959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 648698523383868555, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: sortingOffset
-      value: 1.3
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 648698523938568903, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: m_Sprite
@@ -37425,7 +37425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 648698523383868555, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
       propertyPath: sortingOffset
-      value: 1.3
+      value: 1.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 330d896cb035f114791790c4716eb2ea, type: 3}
